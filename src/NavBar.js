@@ -9,13 +9,18 @@ const linkStyles = {
     color: "white",
 }
 
-function NavBar() {
+
+
+function NavBar({history, handleLogOut, setCurrentUser}) {
+
+
+
     return (
 
         <div> 
 
             <NavLink 
-            to="/"
+            to="/home"
             exact 
             style={linkStyles}
             activeStyle={{
@@ -184,6 +189,7 @@ function NavBar() {
                 December
             </NavLink>
 
+                <button onClick={handleLogOut} >Log out </button>
         </div>
 
     )

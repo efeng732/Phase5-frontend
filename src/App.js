@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState, useEffect} from "react"
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch, withRouter} from "react-router-dom"
 
 //components
 import Goals from './Goals.js'
@@ -9,6 +9,8 @@ import Expenses from './Expenses.js'
 import NavBar from './NavBar.js'
 import GoalFilter from './GoalFilter.js'
 import ExpenseFilter from './ExpenseFilter.js'
+import Auth from './Auth.js'
+
 
 //months unclean edition
 import Jan from './Jan.js'
@@ -25,8 +27,10 @@ import Nov from './Nov.js'
 import Dec from './Dec.js'
 
 
-function App() {
+function App(props) {
 
+
+  const [currentUser, setCurrentUser] = useState()
   const [goals, setGoals] = useState([])
   const [expenses, setExpenses] = useState([])
   const [category, setCategory] = useState("")
@@ -36,10 +40,51 @@ function App() {
   const[goalCategory, setGoalCategory] = useState("All")
   const[goalBudget, setGoalBudget] = useState(0)
 
-  const[expenselMonth, setExpenseMonth] = useState("Jan")
+  const[expenseMonth, setExpenseMonth] = useState("Jan")
   const[expenseCategory, setExpenseCategory] = useState("All")
   const[expensePrice, setExpensePrice] = useState(0)
   const[expenseDescription, setExpenseDescription] = useState("")
+
+    
+
+  let monthSort = {
+    "Jan": 1, 
+    "Feb": 2,
+    "Mar": 3, 
+    "Apr": 4,
+    "May": 5,
+    "Jun": 6,
+    "Jul": 7,
+    "Aug": 8, 
+    "Sep" : 9,
+    "Oct" : 10,
+    "Nov" : 11,
+    "Dec" : 12
+  }
+
+
+  //auth? 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:4000/me', {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      })
+      .then( res => res.json())
+      .then(user => {
+        setCurrentUser(user)
+      })
+    }
+  }, [])
+  
+function handleLogOut(){
+  localStorage.removeItem('token')
+  setCurrentUser(null)
+  props.history.push('/')
+  console.log("logged out")
+}
 
   useEffect(() => {
     fetch('http://localhost:4000/goals')
@@ -60,7 +105,97 @@ function App() {
   }, [])
 
 
-  //filtering data 
+  function handleLogOut(){
+    localStorage.removeItem("token")
+    setCurrentUser({lanes:[]});
+    props.history.push('/');
+  }
+
+  //monthly stuff
+
+    const[janFoodPercent, setJanFoodPercent] = useState(15)
+    const[janAutoPercent, setJanAutoPercent] = useState(10)
+    const [janPersonalPercent, setJanPersonalPercent] = useState(15)
+    const[janHealthPercent, setJanHealthPercent] = useState(10)
+    const[janHomePercent, setJanHomePercent] = useState(10)
+    const[janBillsPercent, setJanBillsPercent] = useState(40)
+
+    const[febFoodPercent, setFebFoodPercent] = useState(15)
+    const[febAutoPercent, setFebAutoPercent] = useState(10)
+    const [febPersonalPercent, setFebPersonalPercent] = useState(15)
+    const[febHealthPercent, setFebHealthPercent] = useState(10)
+    const[febHomePercent, setFebHomePercent] = useState(10)
+    const[febBillsPercent, setFebBillsPercent] = useState(40) 
+
+    const[marFoodPercent, setMarFoodPercent] = useState(15)
+    const[marAutoPercent, setMarAutoPercent] = useState(10)
+    const [marPersonalPercent, setMarPersonalPercent] = useState(15)
+    const[marHealthPercent, setMarHealthPercent] = useState(10)
+    const[marHomePercent, setMarHomePercent] = useState(10)
+    const[marBillsPercent, setMarBillsPercent] = useState(40)
+
+    const[aprFoodPercent, setAprFoodPercent] = useState(15)
+    const[aprAutoPercent, setAprAutoPercent] = useState(10)
+    const [aprPersonalPercent, setAprPersonalPercent] = useState(15)
+    const[aprHealthPercent, setAprHealthPercent] = useState(10)
+    const[aprHomePercent, setAprHomePercent] = useState(10)
+    const[aprBillsPercent, setAprBillsPercent] = useState(40)
+
+    const[mayFoodPercent, setMayFoodPercent] = useState(15)
+    const[mayAutoPercent, setMayAutoPercent] = useState(10)
+    const [mayPersonalPercent, setMayPersonalPercent] = useState(15)
+    const[mayHealthPercent, setMayHealthPercent] = useState(10)
+    const[mayHomePercent, setMayHomePercent] = useState(10)
+    const[mayBillsPercent, setMayBillsPercent] = useState(40)
+
+    const[junFoodPercent, setJunFoodPercent] = useState(15)
+    const[junAutoPercent, setJunAutoPercent] = useState(10)
+    const [junPersonalPercent, setJunPersonalPercent] = useState(15)
+    const[junHealthPercent, setJunHealthPercent] = useState(10)
+    const[junHomePercent, setJunHomePercent] = useState(10)
+    const[junBillsPercent, setJunBillsPercent] = useState(40)
+
+    const[julFoodPercent, setJulFoodPercent] = useState(15)
+    const[julAutoPercent, setJulAutoPercent] = useState(10)
+    const [julPersonalPercent, setJulPersonalPercent] = useState(15)
+    const[julHealthPercent, setJulHealthPercent] = useState(10)
+    const[julHomePercent, setJulHomePercent] = useState(10)
+    const[julBillsPercent, setJulBillsPercent] = useState(40)
+
+    const[augFoodPercent, setAugFoodPercent] = useState(15)
+    const[augAutoPercent, setAugAutoPercent] = useState(10)
+    const [augPersonalPercent, setAugPersonalPercent] = useState(15)
+    const[augHealthPercent, setAugHealthPercent] = useState(10)
+    const[augHomePercent, setAugHomePercent] = useState(10)
+    const[augBillsPercent, setAugBillsPercent] = useState(40)
+
+    const[sepFoodPercent, setSepFoodPercent] = useState(15)
+    const[sepAutoPercent, setSepAutoPercent] = useState(10)
+    const [sepPersonalPercent, setSepPersonalPercent] = useState(15)
+    const[sepHealthPercent, setSepHealthPercent] = useState(10)
+    const[sepHomePercent, setSepHomePercent] = useState(10)
+    const[sepBillsPercent, setSepBillsPercent] = useState(40)
+
+    const[octFoodPercent, setOctFoodPercent] = useState(15)
+    const[octAutoPercent, setOctAutoPercent] = useState(10)
+    const [octPersonalPercent, setOctPersonalPercent] = useState(15)
+    const[octHealthPercent, setOctHealthPercent] = useState(10)
+    const[octHomePercent, setOctHomePercent] = useState(10)
+    const[octBillsPercent, setOctBillsPercent] = useState(40)
+
+    const[novFoodPercent, setNovFoodPercent] = useState(15)
+    const[novAutoPercent, setNovAutoPercent] = useState(10)
+    const [novPersonalPercent, setNovPersonalPercent] = useState(15)
+    const[novHealthPercent, setNovHealthPercent] = useState(10)
+    const[novHomePercent, setNovHomePercent] = useState(10)
+    const[novBillsPercent, setNovBillsPercent] = useState(40)
+
+    const[decFoodPercent, setDecFoodPercent] = useState(15)
+    const[decAutoPercent, setDecAutoPercent] = useState(10)
+    const [decPersonalPercent, setDecPersonalPercent] = useState(15)
+    const[decHealthPercent, setDecHealthPercent] = useState(10)
+    const[decHomePercent, setDecHomePercent] = useState(10)
+    const[decBillsPercent, setDecBillsPercent] = useState(40)
 
 const janGoals = goals.filter((g) => {
   return( g.month == "Jan")
@@ -159,11 +294,40 @@ const decExpenses = expenses.filter((ex) => {
 })
 
 
-  const goalsToDisplay = goals.filter((g) => {
-    return ( category.length == 0? 
-      g: g.category == category 
-    )
-  })
+
+
+// sorting 
+const sortedExpenses = expenses.sort(
+  function(a,b) {
+    return monthSort[a.month] - monthSort[b.month]
+  }
+)
+
+const sortedGoals = goals.sort(
+  function(a,b) {
+    return monthSort[a.month] - monthSort[b.month]
+  }
+)
+
+const goalsToDisplay = goals.filter((g) => {
+  if (category.length == 0 && month.length == 0) {
+    return(g)
+  }
+  else if( category.length > 0 && month.length == 0) {
+    return (g.category == category)
+  }
+  else if (category.length == 0 && month.length > 0) {
+    return(g.month == month)
+  }
+
+  else return(g.category == category && g.month == month)
+})
+
+  // const goalsToDisplay = goals.filter((g) => {
+  //   return ( category.length == 0? 
+  //     g: g.category == category 
+  //   )
+  // })
 
   const expensesToDisplay = expenses.filter((e) => {
     if (category.length == 0 && month.length == 0) {
@@ -188,7 +352,7 @@ const decExpenses = expenses.filter((ex) => {
 
   function handleNewGoal(e) {
     e.preventDefault();
-    alert('FORM SUBMITTED')
+  
     //console.log(goalMonth, goalCategory, goalBudget)
 
     const newGoal = {
@@ -198,6 +362,8 @@ const decExpenses = expenses.filter((ex) => {
       budget: parseFloat(goalBudget)
     };
 
+
+    
     fetch(`http://localhost:4000/goals`, {
       method: "POST", 
       headers: {
@@ -208,7 +374,7 @@ const decExpenses = expenses.filter((ex) => {
     .then(res => res.json())
     .then(newGoalObj => {
       addGoal(newGoalObj)
-    })
+    }) 
   }
 
   function editGoal(updatedGoalObj){
@@ -247,7 +413,7 @@ const decExpenses = expenses.filter((ex) => {
 
     const newGoal = {
       user_id: 1,
-      month: expenselMonth, 
+      month: expenseMonth, 
       category: expenseCategory,
       price: parseFloat(expensePrice),
       description: expenseDescription
@@ -291,9 +457,6 @@ function deleteExpense(updatedExpensesArray) {
 
 
 
-
-
-
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -313,9 +476,17 @@ function deleteExpense(updatedExpensesArray) {
     // </div>
 
     <div>
-      <NavBar /> 
+    
       <Switch>
-        <Route exact path= "/" >
+
+        <Route exact path="/">
+          <Auth setCurrentUser={setCurrentUser} history={props.history}/>
+        </Route>
+
+
+
+        <Route exact path= "/home" >
+        <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
           <br></br>
 
       Welcome to the homepage! 
@@ -412,62 +583,76 @@ function deleteExpense(updatedExpensesArray) {
         </Route>
     
        <Route exact path ="/allgoals" >
-        <GoalFilter goals={goals} category={category} setCategory={setCategory}/>
+       <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <GoalFilter goals={goals} category={category} setCategory={setCategory} month={month} setMonth={setMonth}/>
          <Goals goals={goalsToDisplay} deleteGoal={deleteGoal} editGoal={editGoal}/>
        </Route>
 
       <Route exact path="/allexpenses" >
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
         <ExpenseFilter expenses={expenses} category={category} setCategory={setCategory} month={month} setMonth={setMonth}/>
         <Expenses goals={goals} expenses={expensesToDisplay} deleteExpense={deleteExpense}/> 
 
       </Route>
 
       <Route exact path="/jan">
-        <Jan janGoals={janGoals} janExpenses={janExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Jan janGoals={janGoals} janExpenses={janExpenses} janFoodPercent={janFoodPercent} setJanFoodPercent={setJanFoodPercent} janAutoPercent={janAutoPercent} setJanAutoPercent={setJanAutoPercent} janPersonalPercent={janPersonalPercent} setJanPersonalPercent={setJanPersonalPercent} janHomePercent={janHomePercent} setJanHomePercent={setJanHomePercent} janHealthPercent={janHealthPercent} setJanHealthPercent={setJanHealthPercent} janBillsPercent={janBillsPercent} setJanBillsPercent={setJanBillsPercent}/> 
       </Route>
 
       <Route exact path="/feb">
-        <Feb febGoals={febGoals} febExpenses={febExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Feb febGoals={febGoals} febExpenses={febExpenses} febFoodPercent={febFoodPercent} setFebFoodPercent={setFebFoodPercent} febAutoPercent={febAutoPercent} setFebAutoPercent={setFebAutoPercent} febPersonalPercent={febPersonalPercent} setFebPersonalPercent={setFebPersonalPercent} febHomePercent={febHomePercent} setFebHomePercent={setFebHomePercent} febHealthPercent={febHealthPercent} setFebHealthPercent={setFebHealthPercent} febBillsPercent={febBillsPercent} setFebBillsPercent={setFebBillsPercent}/> 
       </Route>
 
       <Route exact path="/mar">
-        <Mar marGoals={marGoals} marExpenses={marExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Mar marGoals={marGoals} marExpenses={marExpenses} marFoodPercent={marFoodPercent} setMarFoodPercent={setMarFoodPercent} marAutoPercent={marAutoPercent} setMarAutoPercent={setMarAutoPercent} marPersonalPercent={marPersonalPercent} setMarPersonalPercent={setMarPersonalPercent} marHomePercent={marHomePercent} setMarHomePercent={setMarHomePercent} marHealthPercent={marHealthPercent} setMarHealthPercent={setMarHealthPercent} marBillsPercent={marBillsPercent} setMarBillsPercent={setMarBillsPercent}/> 
       </Route>
 
       <Route exact path="/apr">
-        <Apr aprGoals={aprGoals} aprExpenses={aprExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Apr aprGoals={aprGoals} aprExpenses={aprExpenses} aprFoodPercent={aprFoodPercent} setAprFoodPercent={setAprFoodPercent} aprAutoPercent={aprAutoPercent} setAprAutoPercent={setAprAutoPercent} aprPersonalPercent={aprPersonalPercent} setAprPersonalPercent={setAprPersonalPercent} aprHomePercent={aprHomePercent} setAprHomePercent={setAprHomePercent} aprHealthPercent={aprHealthPercent} setAprHealthPercent={setAprHealthPercent} aprBillsPercent={aprBillsPercent} setAprBillsPercent={setAprBillsPercent}/> 
       </Route>
 
       <Route exact path="/may">
-        <May mayGoals={mayGoals} mayExpenses={mayExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <May mayGoals={mayGoals} mayExpenses={mayExpenses} mayFoodPercent={mayFoodPercent} setMayFoodPercent={setMayFoodPercent} mayAutoPercent={mayAutoPercent} setMayAutoPercent={setMayAutoPercent} mayPersonalPercent={mayPersonalPercent} setMayPersonalPercent={setMayPersonalPercent} mayHomePercent={mayHomePercent} setMayHomePercent={setMayHomePercent} mayHealthPercent={mayHealthPercent} setMayHealthPercent={setMayHealthPercent} mayBillsPercent={mayBillsPercent} setMayBillsPercent={setMayBillsPercent}/> 
       </Route>
 
       <Route exact path="/jun">
-        <Jun junGoals={junGoals} junExpenses={junExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Jun junGoals={junGoals} junExpenses={junExpenses} junFoodPercent={junFoodPercent} setJunFoodPercent={setJunFoodPercent} junAutoPercent={junAutoPercent} setJunAutoPercent={setJunAutoPercent} junPersonalPercent={junPersonalPercent} setJunPersonalPercent={setJunPersonalPercent} junHomePercent={junHomePercent} setJunHomePercent={setJunHomePercent} junHealthPercent={junHealthPercent} setJunHealthPercent={setJunHealthPercent} junBillsPercent={junBillsPercent} setJunBillsPercent={setJunBillsPercent}/> 
       </Route>
 
       <Route exact path="/jul">
-        <Jul julGoals={julGoals} julExpenses={julExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Jul julGoals={julGoals} julExpenses={julExpenses} julFoodPercent={julFoodPercent} setJulFoodPercent={setJulFoodPercent} julAutoPercent={julAutoPercent} setJulAutoPercent={setJulAutoPercent} julPersonalPercent={julPersonalPercent} setJulPersonalPercent={setJulPersonalPercent} julHomePercent={julHomePercent} setJulHomePercent={setJulHomePercent} julHealthPercent={julHealthPercent} setJulHealthPercent={setJulHealthPercent} julBillsPercent={julBillsPercent} setJulBillsPercent={setJulBillsPercent}/> 
       </Route>
 
       <Route exact path="/aug">
-        <Aug augGoals={augGoals} augExpenses={augExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Aug augGoals={augGoals} augExpenses={augExpenses} augFoodPercent={augFoodPercent} setAugFoodPercent={setAugFoodPercent} augAutoPercent={augAutoPercent} setAugAutoPercent={setAugAutoPercent} augPersonalPercent={augPersonalPercent} setAugPersonalPercent={setAugPersonalPercent} augHomePercent={augHomePercent} setAugHomePercent={setAugHomePercent} augHealthPercent={augHealthPercent} setAugHealthPercent={setAugHealthPercent} augBillsPercent={augBillsPercent} setAugBillsPercent={setAugBillsPercent}/> 
       </Route>
 
       <Route exact path="/sep">
-        <Sep sepGoals={sepGoals} sepExpenses={sepExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Sep sepGoals={sepGoals} sepExpenses={sepExpenses} sepFoodPercent={sepFoodPercent} setSepFoodPercent={setSepFoodPercent} sepAutoPercent={sepAutoPercent} setSepAutoPercent={setSepAutoPercent} sepPersonalPercent={sepPersonalPercent} setSepPersonalPercent={setSepPersonalPercent} sepHomePercent={sepHomePercent} setSepHomePercent={setSepHomePercent} sepHealthPercent={sepHealthPercent} setSepHealthPercent={setSepHealthPercent} sepBillsPercent={sepBillsPercent} setSepBillsPercent={setSepBillsPercent}/> 
       </Route>
 
       <Route exact path="/oct">
-        <Oct octGoals={octGoals} octExpenses={octExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Oct octGoals={octGoals} octExpenses={octExpenses} octFoodPercent={octFoodPercent} setOctFoodPercent={setOctFoodPercent} octAutoPercent={octAutoPercent} setOctAutoPercent={setOctAutoPercent} octPersonalPercent={octPersonalPercent} setOctPersonalPercent={setOctPersonalPercent} octHomePercent={octHomePercent} setOctHomePercent={setOctHomePercent} octHealthPercent={octHealthPercent} setOctHealthPercent={setOctHealthPercent} octBillsPercent={octBillsPercent} setOctBillsPercent={setOctBillsPercent}/> 
       </Route>
 
       <Route exact path="/nov">
-        <Nov novGoals={novGoals} novExpenses={novExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Nov novGoals={novGoals} novExpenses={novExpenses} novFoodPercent={novFoodPercent} setNovFoodPercent={setNovFoodPercent} novAutoPercent={novAutoPercent} setNovAutoPercent={setNovAutoPercent} novPersonalPercent={novPersonalPercent} setNovPersonalPercent={setNovPersonalPercent} novHomePercent={novHomePercent} setNovHomePercent={setNovHomePercent} novHealthPercent={novHealthPercent} setNovHealthPercent={setNovHealthPercent} novBillsPercent={novBillsPercent} setNovBillsPercent={setNovBillsPercent}/> 
       </Route>
 
       <Route exact path="/dec">
-        <Dec decGoals={decGoals} decExpenses={decExpenses}/> 
+      <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
+        <Dec decGoals={decGoals} decExpenses={decExpenses} decFoodPercent={decFoodPercent} setDecFoodPercent={setDecFoodPercent} decAutoPercent={decAutoPercent} setDecAutoPercent={setDecAutoPercent} decPersonalPercent={decPersonalPercent} setDecPersonalPercent={setDecPersonalPercent} decHomePercent={decHomePercent} setDecHomePercent={setDecHomePercent} decHealthPercent={decHealthPercent} setDecHealthPercent={setDecHealthPercent} decBillsPercent={decBillsPercent} setDecBillsPercent={setDecBillsPercent}/> 
       </Route>
 
       </Switch>
@@ -475,4 +660,4 @@ function deleteExpense(updatedExpensesArray) {
   );
 }
 
-export default App;
+export default withRouter(App);

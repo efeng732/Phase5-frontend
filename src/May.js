@@ -1,7 +1,28 @@
 import {useState, useEffect} from "react"
-import {Pie} from "react-chartjs-2"
+import {Pie} from 'react-chartjs-2'
 
-function May({mayGoals, mayExpenses}){
+
+function May({mayGoals, mayExpenses, mayFoodPercent, setMayFoodPercent, mayAutoPercent, setMayAutoPercent, mayPersonalPercent, setMayPersonalPercent, mayHealthPercent, setMayHealthPercent, mayHomePercent, setMayHomePercent, mayBillsPercent, setMayBillsPercent}){
+    // console.log(mayGoals)
+    // console.log(mayExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
+
+
     let mayFood = 0;
     let mayAuto = 0;
     let mayPersonal = 0;
@@ -71,13 +92,22 @@ function May({mayGoals, mayExpenses}){
 
 
 
-    const [mayData, setmayData] = useState({
+    const [mayData, setMayData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [mayFood, mayAuto, mayPersonal, mayHealth, mayHome, mayBills],
             backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
         }]
     })
+
+    
+    let mayFoodRatio = parseFloat((mayFood/mayTotal*100).toFixed(2))
+    let mayAutoRatio = parseFloat((mayAuto/mayTotal*100).toFixed(2))
+    let mayPersonalRatio = parseFloat((mayPersonal/mayTotal*100).toFixed(2))
+    let mayHealthRatio = parseFloat((mayHealth/mayTotal*100).toFixed(2))
+    let mayHomeRatio = parseFloat((mayHome/mayTotal*100).toFixed(2))
+    let mayBillsRatio = parseFloat((mayBills/mayTotal*100).toFixed(2))
+
 
 
     return (
@@ -89,8 +119,9 @@ function May({mayGoals, mayExpenses}){
                 labels: mayData.labels,
                 datasets: mayData.datasets
             }}
-            height = '50%'
+            height = '90%'
             />
+
 
             <h2>Breakdown for this month</h2>
             <br></br>
@@ -123,10 +154,64 @@ function May({mayGoals, mayExpenses}){
             {mayGoalTotal > 0?  <p>{(mayGoalTotal > mayTotal) ? `You reached your goal this month, going under by a total of ${mayGoalTotal - mayTotal}` : `You failed to reach your goal this month, going over by a total of ${mayTotal-mayGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {mayFoodRatio > mayFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {mayAutoRatio > mayAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {mayPersonalRatio > mayPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {mayHealthRatio > mayHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {mayHomeRatio > mayHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {mayBillsRatio > mayBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={mayFoodPercent}
+                onChange={(e) => setMayFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={mayAutoPercent}
+                onChange={(e) => setMayAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={mayPersonalPercent}
+                onChange={(e) => setMayPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={mayHealthPercent}
+                onChange={(e) => setMayHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={mayHomePercent}
+                onChange={(e) => setMayHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={mayBillsPercent}
+                onChange={(e) => setMayBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )
 }
 
-export default May
+export default May 

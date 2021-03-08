@@ -2,9 +2,25 @@ import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
 
 
-function Jan({janGoals, janExpenses}){
+function Jan({janGoals, janExpenses, janFoodPercent, setJanFoodPercent, janAutoPercent, setJanAutoPercent, janPersonalPercent, setJanPersonalPercent, janHealthPercent, setJanHealthPercent, janHomePercent, setJanHomePercent, janBillsPercent, setJanBillsPercent}){
     // console.log(janGoals)
     // console.log(janExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
 
 
     let janFood = 0;
@@ -85,6 +101,13 @@ function Jan({janGoals, janExpenses}){
     })
 
     
+    let janFoodRatio = parseFloat((janFood/janTotal*100).toFixed(2))
+    let janAutoRatio = parseFloat((janAuto/janTotal*100).toFixed(2))
+    let janPersonalRatio = parseFloat((janPersonal/janTotal*100).toFixed(2))
+    let janHealthRatio = parseFloat((janHealth/janTotal*100).toFixed(2))
+    let janHomeRatio = parseFloat((janHome/janTotal*100).toFixed(2))
+    let janBillsRatio = parseFloat((janBills/janTotal*100).toFixed(2))
+
 
 
     return (
@@ -131,10 +154,71 @@ function Jan({janGoals, janExpenses}){
             {janGoalTotal > 0?  <p>{(janGoalTotal > janTotal) ? `You reached your goal this month, going under by a total of ${janGoalTotal - janTotal}` : `You failed to reach your goal this month, going over by a total of ${janTotal-janGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {janFoodRatio > janFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {janAutoRatio > janAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {janPersonalRatio > janPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {janHealthRatio > janHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {janHomeRatio > janHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {janBillsRatio > janBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={janFoodPercent}
+                onChange={(e) => setJanFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={janAutoPercent}
+                onChange={(e) => setJanAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={janPersonalPercent}
+                onChange={(e) => setJanPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={janHealthPercent}
+                onChange={(e) => setJanHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={janHomePercent}
+                onChange={(e) => setJanHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={janBillsPercent}
+                onChange={(e) => setJanBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )
 }
 
 export default Jan 
+
+// Food less than 15%
+//Bills less than 40%
+//Personal less than 15%
+//Home less than 10%
+//Health less than 10%
+//Auto less than 10%

@@ -1,7 +1,28 @@
 import {useState, useEffect} from "react"
-import {Pie} from "react-chartjs-2"
+import {Pie} from 'react-chartjs-2'
 
-function Jun({junGoals, junExpenses}){
+
+function Jun({junGoals, junExpenses, junFoodPercent, setJunFoodPercent, junAutoPercent, setJunAutoPercent, junPersonalPercent, setJunPersonalPercent, junHealthPercent, setJunHealthPercent, junHomePercent, setJunHomePercent, junBillsPercent, setJunBillsPercent}){
+    // console.log(junGoals)
+    // console.log(junExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
+
+
     let junFood = 0;
     let junAuto = 0;
     let junPersonal = 0;
@@ -71,13 +92,22 @@ function Jun({junGoals, junExpenses}){
 
 
 
-    const [junData, setjunData] = useState({
+    const [junData, setJunData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [junFood, junAuto, junPersonal, junHealth, junHome, junBills],
             backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
         }]
     })
+
+    
+    let junFoodRatio = parseFloat((junFood/junTotal*100).toFixed(2))
+    let junAutoRatio = parseFloat((junAuto/junTotal*100).toFixed(2))
+    let junPersonalRatio = parseFloat((junPersonal/junTotal*100).toFixed(2))
+    let junHealthRatio = parseFloat((junHealth/junTotal*100).toFixed(2))
+    let junHomeRatio = parseFloat((junHome/junTotal*100).toFixed(2))
+    let junBillsRatio = parseFloat((junBills/junTotal*100).toFixed(2))
+
 
 
     return (
@@ -89,8 +119,9 @@ function Jun({junGoals, junExpenses}){
                 labels: junData.labels,
                 datasets: junData.datasets
             }}
-            height = '50%'
+            height = '90%'
             />
+
 
             <h2>Breakdown for this month</h2>
             <br></br>
@@ -123,7 +154,61 @@ function Jun({junGoals, junExpenses}){
             {junGoalTotal > 0?  <p>{(junGoalTotal > junTotal) ? `You reached your goal this month, going under by a total of ${junGoalTotal - junTotal}` : `You failed to reach your goal this month, going over by a total of ${junTotal-junGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {junFoodRatio > junFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {junAutoRatio > junAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {junPersonalRatio > junPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {junHealthRatio > junHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {junHomeRatio > junHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {junBillsRatio > junBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={junFoodPercent}
+                onChange={(e) => setJunFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={junAutoPercent}
+                onChange={(e) => setJunAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={junPersonalPercent}
+                onChange={(e) => setJunPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={junHealthPercent}
+                onChange={(e) => setJunHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={junHomePercent}
+                onChange={(e) => setJunHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={junBillsPercent}
+                onChange={(e) => setJunBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )

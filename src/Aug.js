@@ -1,7 +1,28 @@
 import {useState, useEffect} from "react"
-import {Pie} from "react-chartjs-2"
+import {Pie} from 'react-chartjs-2'
 
-function Aug({augGoals, augExpenses}){
+
+function Aug({augGoals, augExpenses, augFoodPercent, setAugFoodPercent, augAutoPercent, setAugAutoPercent, augPersonalPercent, setAugPersonalPercent, augHealthPercent, setAugHealthPercent, augHomePercent, setAugHomePercent, augBillsPercent, setAugBillsPercent}){
+    // console.log(augGoals)
+    // console.log(augExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
+
+
     let augFood = 0;
     let augAuto = 0;
     let augPersonal = 0;
@@ -71,13 +92,22 @@ function Aug({augGoals, augExpenses}){
 
 
 
-    const [augData, setaugData] = useState({
+    const [augData, setAugData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [augFood, augAuto, augPersonal, augHealth, augHome, augBills],
             backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
         }]
     })
+
+    
+    let augFoodRatio = parseFloat((augFood/augTotal*100).toFixed(2))
+    let augAutoRatio = parseFloat((augAuto/augTotal*100).toFixed(2))
+    let augPersonalRatio = parseFloat((augPersonal/augTotal*100).toFixed(2))
+    let augHealthRatio = parseFloat((augHealth/augTotal*100).toFixed(2))
+    let augHomeRatio = parseFloat((augHome/augTotal*100).toFixed(2))
+    let augBillsRatio = parseFloat((augBills/augTotal*100).toFixed(2))
+
 
 
     return (
@@ -89,8 +119,9 @@ function Aug({augGoals, augExpenses}){
                 labels: augData.labels,
                 datasets: augData.datasets
             }}
-            height = '50%'
+            height = '90%'
             />
+
 
             <h2>Breakdown for this month</h2>
             <br></br>
@@ -123,10 +154,64 @@ function Aug({augGoals, augExpenses}){
             {augGoalTotal > 0?  <p>{(augGoalTotal > augTotal) ? `You reached your goal this month, going under by a total of ${augGoalTotal - augTotal}` : `You failed to reach your goal this month, going over by a total of ${augTotal-augGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {augFoodRatio > augFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {augAutoRatio > augAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {augPersonalRatio > augPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {augHealthRatio > augHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {augHomeRatio > augHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {augBillsRatio > augBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={augFoodPercent}
+                onChange={(e) => setAugFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={augAutoPercent}
+                onChange={(e) => setAugAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={augPersonalPercent}
+                onChange={(e) => setAugPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={augHealthPercent}
+                onChange={(e) => setAugHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={augHomePercent}
+                onChange={(e) => setAugHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={augBillsPercent}
+                onChange={(e) => setAugBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )
 }
 
-export default Aug
+export default Aug 

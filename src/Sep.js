@@ -1,7 +1,28 @@
 import {useState, useEffect} from "react"
-import {Pie} from "react-chartjs-2"
+import {Pie} from 'react-chartjs-2'
 
-function Sep({sepGoals, sepExpenses}){
+
+function Sep({sepGoals, sepExpenses, sepFoodPercent, setSepFoodPercent, sepAutoPercent, setSepAutoPercent, sepPersonalPercent, setSepPersonalPercent, sepHealthPercent, setSepHealthPercent, sepHomePercent, setSepHomePercent, sepBillsPercent, setSepBillsPercent}){
+    // console.log(sepGoals)
+    // console.log(sepExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
+
+
     let sepFood = 0;
     let sepAuto = 0;
     let sepPersonal = 0;
@@ -71,13 +92,22 @@ function Sep({sepGoals, sepExpenses}){
 
 
 
-    const [sepData, setsepData] = useState({
+    const [sepData, setSepData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [sepFood, sepAuto, sepPersonal, sepHealth, sepHome, sepBills],
             backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
         }]
     })
+
+    
+    let sepFoodRatio = parseFloat((sepFood/sepTotal*100).toFixed(2))
+    let sepAutoRatio = parseFloat((sepAuto/sepTotal*100).toFixed(2))
+    let sepPersonalRatio = parseFloat((sepPersonal/sepTotal*100).toFixed(2))
+    let sepHealthRatio = parseFloat((sepHealth/sepTotal*100).toFixed(2))
+    let sepHomeRatio = parseFloat((sepHome/sepTotal*100).toFixed(2))
+    let sepBillsRatio = parseFloat((sepBills/sepTotal*100).toFixed(2))
+
 
 
     return (
@@ -89,8 +119,9 @@ function Sep({sepGoals, sepExpenses}){
                 labels: sepData.labels,
                 datasets: sepData.datasets
             }}
-            height = '50%'
+            height = '90%'
             />
+
 
             <h2>Breakdown for this month</h2>
             <br></br>
@@ -123,10 +154,64 @@ function Sep({sepGoals, sepExpenses}){
             {sepGoalTotal > 0?  <p>{(sepGoalTotal > sepTotal) ? `You reached your goal this month, going under by a total of ${sepGoalTotal - sepTotal}` : `You failed to reach your goal this month, going over by a total of ${sepTotal-sepGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {sepFoodRatio > sepFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {sepAutoRatio > sepAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {sepPersonalRatio > sepPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {sepHealthRatio > sepHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {sepHomeRatio > sepHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {sepBillsRatio > sepBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={sepFoodPercent}
+                onChange={(e) => setSepFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={sepAutoPercent}
+                onChange={(e) => setSepAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={sepPersonalPercent}
+                onChange={(e) => setSepPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={sepHealthPercent}
+                onChange={(e) => setSepHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={sepHomePercent}
+                onChange={(e) => setSepHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={sepBillsPercent}
+                onChange={(e) => setSepBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )
 }
 
-export default Sep
+export default Sep 

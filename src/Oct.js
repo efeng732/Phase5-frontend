@@ -1,6 +1,28 @@
 import {useState, useEffect} from "react"
-import {Pie} from "react-chartjs-2"
-function Oct({octGoals, octExpenses}){
+import {Pie} from 'react-chartjs-2'
+
+
+function Oct({octGoals, octExpenses, octFoodPercent, setOctFoodPercent, octAutoPercent, setOctAutoPercent, octPersonalPercent, setOctPersonalPercent, octHealthPercent, setOctHealthPercent, octHomePercent, setOctHomePercent, octBillsPercent, setOctBillsPercent}){
+    // console.log(octGoals)
+    // console.log(octExpenses)
+
+
+
+    // let foodState = 15
+    // let autoState = 10
+    // let personalState = 15 
+    // let healthState = 10 
+    // let homeState = 10 
+    // let billsState = 40 
+
+    // const[foodPercent, setFoodPercent] = useState(foodState)
+    // const[autoPercent, setAutoPercent] = useState(autoState)
+    // const [personalPercent, setPersonalPercent] = useState(personalState)
+    // const[healthPercent, setHealthPercent] = useState(healthState)
+    // const[homePercent, setHomePercent] = useState(homeState)
+    // const[billsPercent, setBillsPercent] = useState(billsState)
+
+
     let octFood = 0;
     let octAuto = 0;
     let octPersonal = 0;
@@ -70,13 +92,22 @@ function Oct({octGoals, octExpenses}){
 
 
 
-    const [octData, setoctData] = useState({
+    const [octData, setOctData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [octFood, octAuto, octPersonal, octHealth, octHome, octBills],
             backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
         }]
     })
+
+    
+    let octFoodRatio = parseFloat((octFood/octTotal*100).toFixed(2))
+    let octAutoRatio = parseFloat((octAuto/octTotal*100).toFixed(2))
+    let octPersonalRatio = parseFloat((octPersonal/octTotal*100).toFixed(2))
+    let octHealthRatio = parseFloat((octHealth/octTotal*100).toFixed(2))
+    let octHomeRatio = parseFloat((octHome/octTotal*100).toFixed(2))
+    let octBillsRatio = parseFloat((octBills/octTotal*100).toFixed(2))
+
 
 
     return (
@@ -88,8 +119,9 @@ function Oct({octGoals, octExpenses}){
                 labels: octData.labels,
                 datasets: octData.datasets
             }}
-            height = '50%'
+            height = '90%'
             />
+
 
             <h2>Breakdown for this month</h2>
             <br></br>
@@ -122,10 +154,64 @@ function Oct({octGoals, octExpenses}){
             {octGoalTotal > 0?  <p>{(octGoalTotal > octTotal) ? `You reached your goal this month, going under by a total of ${octGoalTotal - octTotal}` : `You failed to reach your goal this month, going over by a total of ${octTotal-octGoalTotal}`}</p> : null }
             <br></br>
 
+            <h2>Recommendations</h2>
+            {octFoodRatio > octFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
+            {octAutoRatio > octAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
+            {octPersonalRatio > octPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
+            {octHealthRatio > octHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
+            {octHomeRatio > octHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
+            {octBillsRatio > octBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
 
+            <form >
+                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food: </label>
+                <input
+                type="number"
+                value={octFoodPercent}
+                onChange={(e) => setOctFoodPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="auto" >Auto: </label>
+                <input
+                type="number"
+                value={octAutoPercent}
+                onChange={(e) => setOctAutoPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="personal" >Personal: </label>
+                <input
+                type="number"
+                value={octPersonalPercent}
+                onChange={(e) => setOctPersonalPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="health" >Health: </label>
+                <input
+                type="number"
+                value={octHealthPercent}
+                onChange={(e) => setOctHealthPercent(e.target.value)}
+                />
+                <br></br>
+                <label hmltFor ="home" >Home: </label>
+                <input
+                type="number"
+                value={octHomePercent}
+                onChange={(e) => setOctHomePercent(e.target.value)}
+                />
+                    <br></br>
+                <label hmltFor ="bills" >Bills: </label>
+                <input
+                type="number"
+                value={octBillsPercent}
+                onChange={(e) => setOctBillsPercent(e.target.value)}
+                />
+                <br></br>
+
+                
+            </form>
             
         </div>
     )
 }
 
-export default Oct
+export default Oct 
