@@ -1,12 +1,18 @@
 import {NavLink} from "react-router-dom"
+import {Grid, Button} from "semantic-ui-react"
 
 const linkStyles = {
     width: "100px",
-    padding: "12px",
-    margin: "0 6px 6px", 
-    background: "#2D68C4", 
+    padding: "10px",
+    margin: "0 6px 6px 6px", 
+    background: "dodgerblue", 
     textDecoration: "none", 
     color: "white",
+    textAlign: "center",
+    borderRadius: "20px", 
+    borderStyle: "outset",
+    boxShadow: "2px 2px"
+    
 }
 
 
@@ -16,15 +22,16 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
 
 
     return (
-
-        <div> 
+        <>
+        <br></br>
+        <Grid> 
 
             <NavLink 
             to="/home"
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
              Home
@@ -36,10 +43,10 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
-                All Goals
+                Goals
             </NavLink>
 
             <NavLink 
@@ -47,18 +54,19 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2A900"
+                background: "#21BA45"
             }}>
-                All Expenses
+                Expenses
             </NavLink>
 
+                
             
             <NavLink 
             to="/jan"
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 January
@@ -69,7 +77,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2A900"
+                background: "#21BA45"
             }}>
                 February
             </NavLink>
@@ -79,22 +87,20 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 March
             </NavLink>
            
-            <br></br>
-            <br></br>
-            <br></br>
+
 
             <NavLink 
             to="/apr"
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 April
@@ -105,7 +111,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 May
@@ -117,7 +123,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 June
@@ -128,7 +134,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 July
@@ -139,7 +145,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 August
@@ -150,7 +156,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 September
@@ -161,7 +167,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 October
@@ -172,7 +178,7 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 November
@@ -183,15 +189,27 @@ function NavBar({history, handleLogOut, setCurrentUser}) {
             exact 
             style={linkStyles}
             activeStyle={{
-                background: "#F2a900"
+                background: "#21BA45"
             }} 
             >
                 December
             </NavLink>
+            </Grid>
+            <br></br>
+    
 
-                <button onClick={handleLogOut} >Log out </button>
-        </div>
+                <Button 
+                floated="right"
+                color="green"
+                animated='fade'
+                onClick={handleLogOut} > 
+                <Button.Content visible> Logging Out?</Button.Content>
+                <Button.Content hidden>Come back soon!</Button.Content>
+                </Button>
+                
+        
 
+    </>
     )
 }
 

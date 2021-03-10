@@ -90,13 +90,38 @@ function Jul({julGoals, julExpenses, julFoodPercent, setJulFoodPercent, julAutoP
         
     }
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "July Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
 
 
     const [julData, setJulData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [julFood, julAuto, julPersonal, julHealth, julHome, julBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor: 'white',
+            hoverBackgroundColor:'white',
+            hoverBorderWidth: 10
         }]
     })
 
@@ -113,12 +138,13 @@ function Jul({julGoals, julExpenses, julFoodPercent, setJulFoodPercent, julAutoP
     return (
         <div>
             <br></br>
-            jul
+            
             <Pie 
             data={{
                 labels: julData.labels,
                 datasets: julData.datasets
             }}
+            options={options}
             height = '90%'
             />
 

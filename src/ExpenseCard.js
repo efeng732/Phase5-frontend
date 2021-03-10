@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"
+import{Item, Button, Card} from "semantic-ui-react"
 
 function ExpenseCard({expense, expenses, deleteExpense}) {
 
@@ -17,15 +18,18 @@ function ExpenseCard({expense, expenses, deleteExpense}) {
 
   
     return (
-        <div>
-            <ul>
-                <li>Month: {month}</li>
-                <li>Category: {category}</li>
-                <li>Price: ${price}</li>
-                <li>Description: {description}</li>
-                <button value={id} onClick={handleDeleteExpense}>Delete this expense </button>
-            </ul>
-        </div>
+        
+        <Card fluid color="black">
+            <Card.Content>
+                <Card.Description><strong>Month: </strong> {month}</Card.Description>
+                <Card.Description><strong>Category: </strong> {category}</Card.Description>
+                <Card.Description><strong>Price: </strong> ${price}</Card.Description>
+                <Card.Description><strong>Description: </strong> {description}</Card.Description>
+                <br></br>
+                <Button color="red" value={id} onClick={handleDeleteExpense}>Delete this expense </Button>
+            </Card.Content>
+        </Card>
+        
     )
 }
 

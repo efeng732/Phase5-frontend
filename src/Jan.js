@@ -91,13 +91,39 @@ function Jan({janGoals, janExpenses, janFoodPercent, setJanFoodPercent, janAutoP
     }
 
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "January Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
 
     const [janData, setJanData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [janFood, janAuto, janPersonal, janHealth, janHome, janBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor: 'white',
+            hoverBackgroundColor:'white',
+            hoverBorderWidth: 10
         }]
+        
     })
 
     
@@ -113,12 +139,13 @@ function Jan({janGoals, janExpenses, janFoodPercent, setJanFoodPercent, janAutoP
     return (
         <div>
             <br></br>
-            Jan
-            <Pie 
+            
+            <Pie
             data={{
                 labels: janData.labels,
                 datasets: janData.datasets
             }}
+            options={options}
             height = '90%'
             />
 

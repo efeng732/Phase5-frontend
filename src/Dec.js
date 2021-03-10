@@ -90,13 +90,38 @@ function Dec({decGoals, decExpenses, decFoodPercent, setDecFoodPercent, decAutoP
         
     }
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "December Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
 
 
     const [decData, setDecData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [decFood, decAuto, decPersonal, decHealth, decHome, decBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor: 'white',
+            hoverBackgroundColor: 'white',
+            hoverBorderWidth: 10
         }]
     })
 
@@ -113,12 +138,13 @@ function Dec({decGoals, decExpenses, decFoodPercent, setDecFoodPercent, decAutoP
     return (
         <div>
             <br></br>
-            dec
+        
             <Pie 
             data={{
                 labels: decData.labels,
                 datasets: decData.datasets
             }}
+            options={options}
             height = '90%'
             />
 

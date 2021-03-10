@@ -90,13 +90,38 @@ function Nov({novGoals, novExpenses, novFoodPercent, setNovFoodPercent, novAutoP
         
     }
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "November Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
 
 
     const [novData, setNovData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [novFood, novAuto, novPersonal, novHealth, novHome, novBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor: 'white',
+            hoverBackgroundColor:'white',
+            hoverBorderWidth: 10
         }]
     })
 
@@ -113,13 +138,14 @@ function Nov({novGoals, novExpenses, novFoodPercent, setNovFoodPercent, novAutoP
     return (
         <div>
             <br></br>
-            nov
+            
             <Pie 
             data={{
                 labels: novData.labels,
                 datasets: novData.datasets
             }}
             height = '90%'
+            options={options}
             />
 
 

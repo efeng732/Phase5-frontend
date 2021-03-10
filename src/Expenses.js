@@ -1,9 +1,10 @@
 import {useState, useEffect} from "react"
 import ExpenseCard from "./ExpenseCard.js"
 import {Line} from "react-chartjs-2"
+import { Card } from "semantic-ui-react"
 
 
-function Expenses ({goals, expenses, deleteExpense}) {
+function Expenses ({goals, important, expenses, deleteExpense}) {
     const[showTotal, setShowTotal] = useState(false)
     const[showFood, setShowFood] = useState(false)
     const[showAuto, setShowAuto] = useState(false)
@@ -760,6 +761,8 @@ function Expenses ({goals, expenses, deleteExpense}) {
         />)
     })
 
+    
+
     const [yearlyTotal, setYearlyTotal] = useState({
         labels:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [
@@ -770,6 +773,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janTotal, febTotal, marTotal, aprTotal, mayTotal, junTotal, julTotal, augTotal, sepTotal, octTotal, novTotal, decTotal]
 
         },
@@ -778,8 +785,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2)',
-            borderColor: "#742774",
+            borderColor: "white",
             borderWidth: 2,
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalTotal, febGoalTotal, marGoalTotal, aprGoalTotal, mayGoalTotal, junGoalTotal, julGoalTotal, augGoalTotal, sepGoalTotal, octGoalTotal, novGoalTotal, decGoalTotal]
         }]
     })
@@ -794,6 +805,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janFoodTotal, febFoodTotal, marFoodTotal, aprFoodTotal, mayFoodTotal, junFoodTotal, julFoodTotal, augFoodTotal, sepFoodTotal, octFoodTotal, novFoodTotal, decFoodTotal]
 
         },
@@ -802,8 +817,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalFood, febGoalFood, marGoalFood, aprGoalFood, mayGoalFood, junGoalFood, julGoalFood, augGoalFood, sepGoalFood, octGoalFood, novGoalFood, decGoalFood]
         }
     ]
@@ -819,6 +838,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janAutoTotal, febAutoTotal, marAutoTotal, aprAutoTotal, mayAutoTotal, junAutoTotal, julAutoTotal, augAutoTotal, sepAutoTotal, octAutoTotal, novAutoTotal, decAutoTotal]
 
         },
@@ -827,8 +850,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalAuto, febGoalAuto, marGoalAuto, aprGoalAuto, mayGoalAuto, junGoalAuto, julGoalAuto, augGoalAuto, sepGoalAuto, octGoalAuto, novGoalAuto, decGoalAuto]
         }]
     })
@@ -843,6 +870,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janPersonalTotal, febPersonalTotal, marPersonalTotal, aprPersonalTotal, mayPersonalTotal, junPersonalTotal, julPersonalTotal, augPersonalTotal, sepPersonalTotal, octPersonalTotal, novPersonalTotal, decPersonalTotal]
 
         },
@@ -851,8 +882,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalPersonal, febGoalPersonal, marGoalPersonal, aprGoalPersonal, mayGoalPersonal, junGoalPersonal, julGoalPersonal, augGoalPersonal, sepGoalPersonal, octGoalPersonal, novGoalPersonal, decGoalPersonal]
         }
     ]
@@ -868,6 +903,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janHealthTotal, febHealthTotal, marHealthTotal, aprHealthTotal, mayHealthTotal, junHealthTotal, julHealthTotal, augHealthTotal, sepHealthTotal, octHealthTotal, novHealthTotal, decHealthTotal]
 
         },
@@ -876,8 +915,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalHealth, febGoalHealth, marGoalHealth, aprGoalHealth, mayGoalHealth, junGoalHealth, julGoalHealth, augGoalHealth, sepGoalHealth, octGoalHealth, novGoalHealth, decGoalHealth]
         }]
     })
@@ -892,6 +935,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janHomeTotal, febHomeTotal, marHomeTotal, aprHomeTotal, mayHomeTotal, junHomeTotal, julHomeTotal, augHomeTotal, sepHomeTotal, octHomeTotal, novHomeTotal, decHomeTotal]
         },
         {
@@ -899,8 +946,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalHome, febGoalHome, marGoalHome, aprGoalHome, mayGoalHome, junGoalHome, julGoalHome, augGoalHome, sepGoalHome, octGoalHome, novGoalHome, decGoalHome]
         }]
     })
@@ -915,6 +966,10 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 backgroundColor: 'rgba(75,192,192,1)' , 
                 borderColor: 'rgba(0,0,0,1)' ,
                 borderWidth: 3,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBorderColor: 'black',
+                pointHoverBackgroundColor: 'white',
                 data: [janBillsTotal, febBillsTotal, marBillsTotal, aprBillsTotal, mayBillsTotal, junBillsTotal, julBillsTotal, augBillsTotal, sepBillsTotal, octBillsTotal, novBillsTotal, decBillsTotal]
 
         },
@@ -923,8 +978,12 @@ function Expenses ({goals, expenses, deleteExpense}) {
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
-            borderColor: '#742774',
+            borderColor: 'white',
             borderWidth: 2, 
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 3,
+            pointHoverBorderColor: 'white',
+            pointHoverBackgroundColor: 'black',
             data: [janGoalBills, febGoalBills, marGoalBills, aprGoalBills, mayGoalBills, junGoalBills, julGoalBills, augGoalBills, sepGoalBills, octGoalBills, novGoalBills, decGoalBills]
         }]
     })
@@ -942,15 +1001,53 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 labels: yearlyTotal.labels,
                 datasets: yearlyTotal.datasets
             }}
+            
             options={{
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Monthly total spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: '#111'
                 },
                 legend:{
-                    display:true,
-                    position: 'right'
+                    display: true,
+                    position: 'right',
+                    labels: {
+                    fontSize: 20,
+                    fontColor: 'black' }
+                },
+                scales: {
+                    yAxes:[{
+                        display: true, 
+                        gridLines: {color: 'black'},
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Dollars',
+                            fontColor: 'black',
+                            fontSize: 14
+                        },
+                        ticks: {
+                            min: 2000,
+                            max: 7500,
+                            stepSize: 500,
+                            fontColor: 'black'
+                        }
+                    }], 
+                    xAxes: [{
+                        display:true,
+                        gridLines: {color: 'black'},
+                        scaleLabel:{
+                            display: true,
+                            labelString: 'Months',
+                            fontColor:'black',
+                            fontSize: 14
+                        },
+                        ticks: {
+                            fontColor:'black'
+                        }
+                    }]
+
                 }
             }}
             /> : null}
@@ -965,16 +1062,53 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyFood.datasets
             }}
             options={{
+                responsive: 'true',
                 title: {
                     display: true,
                     text: 'Monthly food spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 800,
+                                stepSize: 100,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
 
@@ -988,16 +1122,53 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyAuto.datasets
             }}
             options={{
+                responsive: 'true',
                 title: {
                     display: true,
                     text: 'Monthly Auto spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 1000,
+                                stepSize: 100,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
 
@@ -1011,16 +1182,53 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyPersonal.datasets
             }}
             options={{
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Monthly personal spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 4610,
+                                stepSize: 500,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
 <button onClick={() => setShowHealth(!showHealth)}>
@@ -1033,16 +1241,53 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyHealth.datasets
             }}
             options={{
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Monthly health spending',
-                    fontSize: 20
+                    fontSize: 28, 
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 1500,
+                                stepSize: 200,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
 
@@ -1056,6 +1301,7 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyHome.datasets
             }}
             options={{
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Monthly home spending',
@@ -1063,9 +1309,44 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 1200,
+                                stepSize: 200,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
 <button onClick={() => setShowBills(!showBills)}>
@@ -1078,6 +1359,7 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 datasets: yearlyBills.datasets
             }}
             options={{
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Monthly bills spending',
@@ -1085,12 +1367,47 @@ function Expenses ({goals, expenses, deleteExpense}) {
                 },
                 legend:{
                     display:true,
-                    position: 'right'
-                }
-            }}
+                    position: 'right',
+                    labels: {
+                        fontSize: 20,
+                        fontColor: 'black' }
+                    },
+                    scales: {
+                        yAxes:[{
+                            display: true, 
+                            gridLines: {color: 'black'},
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollars',
+                                fontColor: 'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                min: 500,
+                                max: 2000,
+                                stepSize: 250,
+                                fontColor: 'black'
+                            }
+                        }], 
+                        xAxes: [{
+                            display:true,
+                            gridLines: {color: 'black'},
+                            scaleLabel:{
+                                display: true,
+                                labelString: 'Months',
+                                fontColor:'black',
+                                fontSize: 14
+                            },
+                            ticks: {
+                                fontColor:'black'
+                            }
+                        }]
+    
+                    }
+                }}
             /> : null}
 
-        {expenseComponents}
+       <Card.Group itemsPerRow={3} >{expenseComponents}</Card.Group>
 
     </div>
     )

@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -11,9 +11,138 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+} */
+
+/* 
+h2#appheader{
+  color: blue 
+}  */
+
+
+
+body, html {
+  /* background-color: powderblue!important ; */
+  /* background-image: url( "https://images.hdqwalls.com/download/blur-blue-gradient-cool-background-sp-1920x1080.jpg") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important; */
+  height: 100%;
 }
 
-.App-header {
+.bg {
+  background-image: url( "https://images.hdqwalls.com/download/blur-blue-gradient-cool-background-sp-1920x1080.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+/* div#home {
+  background-image: url( "https://images.hdqwalls.com/download/blur-blue-gradient-cool-background-sp-1920x1080.jpg")
+} */
+
+
+form.home {
+  color: white; 
+}
+div#newGoalForm{
+  
+  margin: auto;
+  border-radius: 10px;
+  background-color: #0a0d0f67;
+  width: 500px;
+  text-align: left;
+  padding: 20px;
+
+}
+
+div#newExpenseForm{
+  margin:auto; 
+  border-radius: 10px;
+  background-color: #0a0d0f67;
+  width: 500px;
+  text-align: left;
+  padding: 20px;
+  
+}
+
+ input[type=text], select {
+  background-color: dodgerblue;
+  color:white; 
+  box-sizing: border-box;
+  padding: 3px 3px;
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid;
+  width: 170px;
+}
+input[type=number].show {
+  background-color: dodgerblue;
+  color:white; 
+  box-sizing: border-box;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid;
+  width: 170px
+}
+
+input[type=text] {
+  background-color: dodgerblue;
+  color:white; 
+  box-sizing: border-box;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid;
+  width: 450px;
+}
+
+div#readme{
+  width: 250px;
+  margin: auto;
+  padding: 20px;
+}
+
+p#instructions {
+  font-size: 16px;
+  font-family: "Georgia";
+  font-weight: bold;
+  width: 75%;
+  text-align: center;
+  margin: auto;
+
+}
+
+button {
+  background-color: dodgerblue; /* Green */
+  border: 2px outset white;
+  
+  border-radius: 10px;
+  color: white;
+  padding: 14px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 6px 6px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color:#21BA45;
+  border: 2px solid black; 
+  transform: scale(1.2);
+  box-shadow:  4px 8px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  
+}
+
+h2#appheader {
+  border-bottom: 3px solid black;
+}
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -34,5 +163,5 @@
   }
   to {
     transform: rotate(360deg);
-  }
-}
+  } */
+/* } */

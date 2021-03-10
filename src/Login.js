@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Button, Divider, Form, Grid, Segment, Header, Image, Message} from "semantic-ui-react"
+import {Link, useHistory} from 'react-router-dom'
 
 function Login({setCurrentUser, loginForm, setLoginForm, history}) {
     
@@ -40,36 +41,85 @@ function Login({setCurrentUser, loginForm, setLoginForm, history}) {
 
 
     return (
-
-        <form className="login-form" onSubmit={handleLogin} autoComplete="off">
-        <input 
-            type="text" 
-            name="username" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            placeholder="Enter Username"/>
-        <br></br>
-        <br></br>
-        <input 
-            type="password" 
-            name="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            placeholder="Enter Password"
-        />
-        <br></br>
-        <br></br>
-        {errors.map((error) => {
-            return <p key={error}>{error}</p>;
-        })}
-        <input className="submit-button" type="Submit" value="Login"/>
+    //     <Grid textAlign= 'center' style={{height: '100vh'}} verticalAlign='middle' >
+    //         <Grid.Column style={{maxWidth: 450}} >
+    //         <Header as='h2' color='black' textAlign='center'>
+    //             Login Page!
+    //         </Header>
 
 
-        <p>Don't have an account? <span onClick={()=>setLoginForm(!loginForm)}>Sign up</span></p>
+    //     <Form className="login-form" onSubmit={handleLogin} autoComplete="off">
+    //         <Segment stacked>
+    //     <input 
+    //         type="text" 
+    //         name="username" 
+    //         value={username} 
+    //         onChange={(e) => setUsername(e.target.value)} 
+    //         placeholder="Enter Username"/>
+    //     <br></br>
+    //     <br></br>
+    //     <input 
+    //         type="password" 
+    //         name="password" 
+    //         value={password} 
+    //         onChange={(e) => setPassword(e.target.value)} 
+    //         placeholder="Enter Password"
+    //     />
+    //     <br></br>
+    //     <br></br>
+    //     {errors.map((error) => {
+    //         return <p key={error}>{error}</p>;
+    //     })}
+    //     <input className="submit-button" type="Submit" value="Login"/>
 
-    </form> 
-    )
 
+    //     <p>Don't have an account? <span onClick={()=>setLoginForm(!loginForm)}>Sign up</span></p>
+    //     </Segment>
+    // </Form> 
+
+    //         </Grid.Column>
+    //     </Grid>
+    // )
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as='h2' color='black' textAlign='center'>
+          <Image src="https://www.graphicsprings.com/filestorage/stencils/0e272055dc9876a1f417b0570282b324.png?width=500&height=500" />
+          
+        Login to your account
+      </Header>
+      <Form onSubmit={handleLogin} size='large'>
+        <Segment stacked>
+          <Form.Input 
+                fluid icon='user' 
+                iconPosition='left' 
+                label='Username'
+                placeholder='Username'
+                value = {username}
+                onChange={e=> setUsername(e.target.value)}
+          />
+          <Form.Input
+            fluid
+            icon='lock'
+            iconPosition='left'
+            label='Password'
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={e=> setPassword(e.target.value)}
+          />
+          {errors.map(error => {
+            return <p key={error}>{errors} </p>
+          })}
+          
+
+          <Button type='submit' color='green' fluid size='large'>
+            Login
+          </Button>
+        </Segment>
+      </Form>
+      <p>Don't have an account? <span onClick={()=>setLoginForm(!loginForm)}>Click me to <strong>Sign up!</strong></span></p>
+    </Grid.Column>
+  </Grid>)
 }
 
 export default Login 

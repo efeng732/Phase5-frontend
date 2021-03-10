@@ -90,13 +90,39 @@ function May({mayGoals, mayExpenses, mayFoodPercent, setMayFoodPercent, mayAutoP
         
     }
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "May Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
+
 
 
     const [mayData, setMayData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [mayFood, mayAuto, mayPersonal, mayHealth, mayHome, mayBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor: 'white',
+            hoverBackgroundColor: 'white',
+            hoverBorderWidth: 10
         }]
     })
 
@@ -113,12 +139,13 @@ function May({mayGoals, mayExpenses, mayFoodPercent, setMayFoodPercent, mayAutoP
     return (
         <div>
             <br></br>
-            may
+            
             <Pie 
             data={{
                 labels: mayData.labels,
                 datasets: mayData.datasets
             }}
+            options={options}
             height = '90%'
             />
 

@@ -90,13 +90,38 @@ function Jun({junGoals, junExpenses, junFoodPercent, setJunFoodPercent, junAutoP
         
     }
 
+    var options = {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            duration: 3000
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "June Pie Chart",
+          fontSize: 24,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            fontColor: "#111",
+            fontSize: 18,
+          }
+        }
+      }
 
 
     const [junData, setJunData] = useState({
         labels: ['Food', 'Auto', 'Personal', 'Health', 'Home', 'Bills'], 
         datasets: [{
             data: [junFood, junAuto, junPersonal, junHealth, junHome, junBills],
-            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange']
+            backgroundColor:['red', 'blue', 'green', 'purple', 'black', 'orange'],
+            borderColor:'white',
+            hoverBackgroundColor:'white',
+            hoverBorderWidth: 10
         }]
     })
 
@@ -113,12 +138,13 @@ function Jun({junGoals, junExpenses, junFoodPercent, setJunFoodPercent, junAutoP
     return (
         <div>
             <br></br>
-            jun
+            
             <Pie 
             data={{
                 labels: junData.labels,
                 datasets: junData.datasets
             }}
+            options={options}
             height = '90%'
             />
 

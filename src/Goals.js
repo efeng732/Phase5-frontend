@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import GoalCard from './GoalCard.js'
+import {Card} from "semantic-ui-react"
 
 function Goals ({goals, deleteGoal, editGoal}) {
 
@@ -19,7 +20,7 @@ function Goals ({goals, deleteGoal, editGoal}) {
     return (
 
         <div>
-            {goalComponents}
+           <Card.Group itemsPerRow={3} >{goalComponents} </Card.Group>
         </div>
 
         )

@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import {useState, useEffect} from "react"
 import {Route, Switch, withRouter} from "react-router-dom"
+import {Header, Form, Input, Select, Button} from "semantic-ui-react"
+
 
 //components
 import Goals from './Goals.js'
@@ -41,9 +43,11 @@ function App(props) {
   const[goalBudget, setGoalBudget] = useState(0)
 
   const[expenseMonth, setExpenseMonth] = useState("Jan")
-  const[expenseCategory, setExpenseCategory] = useState("All")
+  const[expenseCategory, setExpenseCategory] = useState("Food")
   const[expensePrice, setExpensePrice] = useState(0)
   const[expenseDescription, setExpenseDescription] = useState("")
+
+  const[readMe, setReadMe] = useState(false)
 
     
 
@@ -110,6 +114,7 @@ function handleLogOut(){
     setCurrentUser({lanes:[]});
     props.history.push('/');
   }
+
 
   //monthly stuff
 
@@ -352,7 +357,7 @@ const goalsToDisplay = goals.filter((g) => {
 
   function handleNewGoal(e) {
     e.preventDefault();
-  
+    alert("Goal created!")
     //console.log(goalMonth, goalCategory, goalBudget)
 
     const newGoal = {
@@ -393,10 +398,12 @@ const goalsToDisplay = goals.filter((g) => {
 
   function handleChange(e) {
    setGoalMonth(e.target.value)
+   console.log(goalMonth)
   }
 
   function handleCategoryChange(e) {
     setGoalCategory(e.target.value)
+    console.log(goalCategory)
   }
 
 
@@ -408,7 +415,7 @@ const goalsToDisplay = goals.filter((g) => {
 
   function handleNewExpense(e) {
     e.preventDefault();
-    alert('Expense SUBMITTED')
+    alert('Expense Submitted!')
     //console.log(goalMonth, goalCategory, goalBudget)
 
     const newGoal = {
@@ -454,7 +461,30 @@ function deleteExpense(updatedExpensesArray) {
   setExpenses(updatedExpensesArray)
 }
 
+const monthOptions =[ 
+  {key: "Jan", value: "Jan", text:"Jan"}, 
+  {key:"Feb", value: "Feb", text:"Feb"},
+  {key:"Mar", value:"Mar", text:"Mar"},
+  {key:"Apr", value:"Apr", text:"Apr"},
+  {key:"May", value:"May", text:"May"},
+  {key:"Jun", value:"Jun", text:"Jun"},
+  {key:"Jul", value:"Jul", text:"Jul"},
+  {key:"Aug", value:"Aug", text:"Aug"},
+  {key:"Sep", value:"Sep", text:"Sep"},
+  {key:"Oct", value:"Oct", text:"Oct"},
+  {key:"Nov", value:"Nov", text:"Nov"},
+  {key:"Dec", value:"Dec", text:"Dec"}
+]
 
+const categoryOptions =[
+  {key:"All", value:"All", text:"All"},
+  {key:"Food", value:"Food", text:"Food"},
+  {key:"Auto", value:"Auto", text:"Auto"},
+  {key:"Personal", value:"Personal", text:"Personal"},
+  {key:"Home", value:"Home", text:"Home"},
+  {key:"Health", value:"Health", text:"Health"},
+  {key:"Bills", value:"Bills", text:"Bills"}
+]
 
 
   return (
@@ -475,7 +505,7 @@ function deleteExpense(updatedExpensesArray) {
     //   </header>
     // </div>
 
-    <div>
+    <div class="bg">
     
       <Switch>
 
@@ -486,57 +516,88 @@ function deleteExpense(updatedExpensesArray) {
 
 
         <Route exact path= "/home" >
+          <div id="home" >
         <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
           <br></br>
 
-      Welcome to the homepage! 
-      
+          <Header id="appheader" as="h2" textAlign="center"dividing >Welcome to the homepage! Here you can set monthly goals and add expenses</Header>      
+      <div id="readme">
+
+    <Button animated="fade" onClick={() => setReadMe(!readMe)}  fluid size='medium' color="green">
+     <Button.Content visible>Site Overview </Button.Content> 
+     <Button.Content hidden>Click me for a readme!</Button.Content>
+     </Button>
+    </div>
+
+  {readMe ? <p id="instructions">
+  This is a budgeting application to assist with fiscal responsibility. You can set budgeting goals based on multiple spending categories for all 12 months of the year. 
+  In addition, you can add your expenses for each month and category that you decide they fall under. You are able to edit, delete, and view those goals and expenses.
+  They are sorted from January to December, but you can filter by month as well as category. In the Expenses tab, you will also be able to view annual trends of your spending against the goals you have set.
+  In each of the monthly tabs, you can see spending breakdown, how close you were to reaching the goals you spent, and set parameters for each category's percentage of total spending with recommendations corresponding to those percentages.
+  For your convenience, each month has a default of 15% food, 10% auto, 15% personal, 10% health, 10% home, and 40% bills. However, those can be adjusted per month for flexibility and the app will remember your preferences.
+  Lastly, the graphs and feedback will change dynamically as you enter new data or change your benchmarks!
+  
+    </p> : null}    
     
-
-      <form onSubmit ={handleNewGoal} >
-        <h2>Create New Goal </h2>
-        <label htmlFor="month"> <strong>Month: </strong></label>
-        <select onChange={handleChange} >
-          <option value="Jan"> Jan </option>
-          <option value="Feb">Feb </option>
-          <option value="Mar">Mar </option>
-          <option value="Apr">Apr </option>
-          <option value="May">May </option>
-          <option value="Jun">Jun </option>
-          <option value="Jul">Jul </option>
-          <option value="Aug">Aug </option>
-          <option value="Sep">Sep </option>
-          <option value="Oct">Oct </option>
-          <option value="Nov">Nov </option>
-          <option value="Dec">Dec </option>
-        </select>
-
-        <label htmlFor="category"> <strong>Category: </strong></label>
-        <select onChange={handleCategoryChange} >
-          <option value="All">All </option>
-          <option value="Food">Food </option>
-          <option value="Auto">Auto</option>
-          <option value="Personal">Personal</option>
-          <option value="Home">Home</option>
+    <div id="newGoalForm">
+      <form className="home" onSubmit ={handleNewGoal} >
+        <h2 style={{textAlign:"center"}}>Create New Goal </h2>
+        <label htmlFor="month"> <strong>Month </strong></label>
+        <br></br>
+        {/* <Select size="mini" onChange={handleChange} options={monthOptions} placeholder="Select month" */}
+      <select onChange={handleChange}>
+        <option value="Jan"> Jan </option>
+           <option value="Feb">Feb </option>
+           <option value="Mar">Mar </option>
+           <option value="Apr">Apr </option>
+           <option value="May">May </option>
+           <option value="Jun">Jun </option>
+           <option value="Jul">Jul </option>
+           <option value="Aug">Aug </option>
+           <option value="Sep">Sep </option>
+           <option value="Oct">Oct </option>
+           <option value="Nov">Nov </option>
+           <option value="Dec">Dec </option>
+           </select>
+        {/* /> */}
+      <br></br> <br></br>
+        <label htmlFor="category"> <strong>Category </strong></label> <br></br> 
+        {/* <Select onChange={handleCategoryChange} options={categoryOptions} placeholder="Pick a category" */}
+        <select onChange={handleCategoryChange}>
+           <option value="All">All </option>
+           <option value="Food">Food </option>
+           <option value="Auto">Auto</option>
+           <option value="Personal">Personal</option>
+           <option value="Home">Home</option>
           <option value="Health">Health</option>
-        </select>
+          <option value="Bills">Bills</option>
+          </select>
+        {/* /> */}
+        <br></br> <br></br>
         
-        <label htmlFor="budget"><strong>Budget: </strong></label>
-        <input 
+        <label htmlFor="budget"><strong>Budget </strong></label>
+        <br></br>
+        <input className ="show"
           type="number"
           name="budget"
           value={goalBudget}
           onChange={(e) => setGoalBudget(e.target.value)} />
 
-        <input type="submit" value="Submit" />
+          <br></br>
+          <br></br>
+
+        {/* <input type="submit" value="Submit" /> */}
+        <Button type='submit' color='green' fluid size='medium'> Submit Goal</Button>
 
       </form>
+      </div>
 
-      <br></br>
+        <br></br>
 
-      <form onSubmit ={handleNewExpense} >
-        <h2>Create New Expense </h2>
-        <label htmlFor="month"> <strong>Month: </strong></label>
+      <div id="newExpenseForm">
+      <form className="home" onSubmit ={handleNewExpense} >
+        <h2 style={{textAlign:"center"}}>Create New Expense </h2>
+        <label htmlFor="month"> <strong>Month </strong></label> <br></br>
         <select onChange={handleChangeExpense} >
           <option value="Jan"> Jan </option>
           <option value="Feb">Feb </option>
@@ -551,35 +612,43 @@ function deleteExpense(updatedExpensesArray) {
           <option value="Nov">Nov </option>
           <option value="Dec">Dec </option>
         </select>
+        <br></br> <br></br>
 
-        <label htmlFor="category"> <strong>Category: </strong></label>
+        <label htmlFor="category"> <strong>Category </strong></label> <br></br>
         <select onChange={handleCategoryChangeExpense} >
-          <option value="All">All </option>
+          {/* <option value="All">All </option> */}
           <option value="Food">Food </option>
           <option value="Auto">Auto</option>
           <option value="Personal">Personal</option>
           <option value="Home">Home</option>
           <option value="Health">Health</option>
+          <option value="Bills">Bills</option>
         </select>
+        <br></br> <br></br>
         
-        <label htmlFor="price"><strong>Price: </strong></label>
-        <input 
+        <label htmlFor="price"><strong>Price </strong></label> <br></br>
+        <input className="show"
           type="number"
           name="price"
           value={expensePrice}
           onChange={(e) => setExpensePrice(e.target.value)} />
-          <br></br>
+          <br></br> <br></br>
 
-          <label htmlFor="description"><strong>Description: </strong></label>
+          <label htmlFor="description"><strong>Description </strong></label> <br></br>
           <input 
           type="text"
           name="description"
+  
           onChange={handleDescription} />
+          <br></br> <br></br>
+          <Button type='submit' color='green' fluid size='medium'> Submit Expense</Button>
 
-        <input type="submit" value="Submit" />
+        {/* <input type="submit" value="Submit" /> */}
 
       </form>
-
+      </div>
+      </div>
+      
         </Route>
     
        <Route exact path ="/allgoals" >
@@ -591,7 +660,7 @@ function deleteExpense(updatedExpensesArray) {
       <Route exact path="/allexpenses" >
       <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
         <ExpenseFilter expenses={expenses} category={category} setCategory={setCategory} month={month} setMonth={setMonth}/>
-        <Expenses goals={goals} expenses={expensesToDisplay} deleteExpense={deleteExpense}/> 
+        <Expenses goals={goals} important={expenses} expenses={expensesToDisplay} deleteExpense={deleteExpense}/> 
 
       </Route>
 
