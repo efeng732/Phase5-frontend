@@ -1,11 +1,13 @@
 import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
+import {Card, Modal, Button, Segment} from 'semantic-ui-react'
 
 
 function Jul({julGoals, julExpenses, julFoodPercent, setJulFoodPercent, julAutoPercent, setJulAutoPercent, julPersonalPercent, setJulPersonalPercent, julHealthPercent, setJulHealthPercent, julHomePercent, setJulHomePercent, julBillsPercent, setJulBillsPercent}){
     // console.log(julGoals)
     // console.log(julExpenses)
 
+    const[open, setOpen] = useState(false)
 
 
     // let foodState = 15
@@ -148,85 +150,55 @@ function Jul({julGoals, julExpenses, julFoodPercent, setJulFoodPercent, julAutoP
             height = '90%'
             />
 
-
-            <h2>Breakdown for this month</h2>
-            <br></br>
-
-            <p>Food: ${julFood}, percentage of total: {parseFloat((julFood/julTotal*100).toFixed(2))} %, Goal: {julGoalFood > 0? julGoalFood : "Did not set a goal for this month"}</p>
-            {julGoalFood > 0?  <p>{(julGoalFood > julFood) ? `You reached your goal this month, going under by a total of ${julGoalFood - julFood}` : `You failed to reach your goal this month, going over by a total of ${julFood-julGoalFood}`}</p> : null }
-            <br></br>
-
-            <p>Auto: ${julAuto}, percentage of total: {parseFloat((julAuto/julTotal*100).toFixed(2))} % , Goal: {julGoalAuto > 0? julGoalAuto : "Did not set a goal for this month"} </p>
-            {julGoalAuto > 0?  <p>{(julGoalAuto > julAuto) ? `You reached your goal this month, going under by a total of ${julGoalAuto - julAuto}` : `You failed to reach your goal this month, going over by a total of ${julAuto-julGoalAuto}`}</p> : null }
-            <br></br>
-
-            <p>Personal: ${julPersonal}, percentage of total: {parseFloat((julPersonal/julTotal*100).toFixed(2))} %, Goal: {julGoalPersonal> 0? julGoalPersonal : "Did not set a goal for this month"}</p>
-            {julGoalPersonal > 0?  <p>{(julGoalPersonal > julPersonal) ? `You reached your goal this month, going under by a total of ${julGoalPersonal - julPersonal}` : `You failed to reach your goal this month, going over by a total of ${julPersonal-julGoalPersonal}`}</p> : null }
-            <br></br>
-
-            <p>Health: ${julHealth}, percentage of total: {parseFloat((julHealth/julTotal*100).toFixed(2))} % , Goal: {julGoalHealth > 0? julGoalHealth : "Did not set a goal for this month"}</p>
-             {julGoalHealth > 0?  <p>{(julGoalHealth > julHealth) ? `You reached your goal this month, going under by a total of ${julGoalHealth - julHealth}` : `You failed to reach your goal this month, going over by a total of ${julHealth-julGoalHealth}`}</p> : null }
-            <br></br>
-
-            <p>Home: ${julHome}, percentage of total: {parseFloat((julHome/julTotal*100).toFixed(2))} %, Goal: {julGoalHome > 0? julGoalHome : "Did not set a goal for this month"}</p>
-            {julGoalHome > 0?  <p>{(julGoalHome > julHome) ? `You reached your goal this month, going under by a total of ${julGoalHome - julHome}` : `You failed to reach your goal this month, going over by a total of ${julHome-julGoalHome}`}</p> : null }
-            <br></br>
-
-            <p>Bills :${julBills}, percentage of total: {parseFloat((julBills/julTotal*100).toFixed(2))} %, Goal: {julGoalBills > 0? julGoalBills : "Did not set a goal for this month"}</p>
-            {julGoalBills > 0?  <p>{(julGoalBills > julBills) ? `You reached your goal this month, going under by a total of ${julGoalBills - julBills}` : `You failed to reach your goal this month, going over by a total of ${julBills-julGoalBills}`}</p> : null }
-            <br></br>
-
-            <p>Total Spending:${julTotal}, Goal: {julGoalTotal > 0? julGoalTotal : "Did not set a goal for this month"}</p>
-            {julGoalTotal > 0?  <p>{(julGoalTotal > julTotal) ? `You reached your goal this month, going under by a total of ${julGoalTotal - julTotal}` : `You failed to reach your goal this month, going over by a total of ${julTotal-julGoalTotal}`}</p> : null }
-            <br></br>
-
-            <h2>Recommendations</h2>
-            {julFoodRatio > julFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
-            {julAutoRatio > julAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
-            {julPersonalRatio > julPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
-            {julHealthRatio > julHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
-            {julHomeRatio > julHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
-            {julBillsRatio > julBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
-
-            <form >
-                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
-                <label hmltFor ="food" >Food: </label>
+<Modal basic onClose={() => setOpen(false)} onOpen={()=>setOpen(true)} 
+            open={open} size="small" trigger={<Button color="green"> Change benchmarks</Button>}>
+            <Segment inverted>
+            <div className="newExpenseForm">
+            <form className="home">
+                <h3>Change your recommendation benchmarks! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julFoodPercent}
                 onChange={(e) => setJulFoodPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="auto" >Auto: </label>
+                <label hmltFor ="auto" >Auto </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julAutoPercent}
                 onChange={(e) => setJulAutoPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="personal" >Personal: </label>
+                <label hmltFor ="personal" >Personal </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julPersonalPercent}
                 onChange={(e) => setJulPersonalPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="health" >Health: </label>
+                <label hmltFor ="health" >Health </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julHealthPercent}
                 onChange={(e) => setJulHealthPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="home" >Home: </label>
+                <label hmltFor ="home" >Home </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julHomePercent}
                 onChange={(e) => setJulHomePercent(e.target.value)}
                 />
                     <br></br>
-                <label hmltFor ="bills" >Bills: </label>
+                <label hmltFor ="bills" >Bills </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={julBillsPercent}
                 onChange={(e) => setJulBillsPercent(e.target.value)}
@@ -235,6 +207,58 @@ function Jul({julGoals, julExpenses, julFoodPercent, setJulFoodPercent, julAutoP
 
                 
             </form>
+            </div>
+            </Segment>
+            </Modal>
+
+
+<Card.Group itemsPerRow={2}>
+                <Card className="breakdown">
+
+            <Card.Header textAlign='center' as='h2'>Breakdown for this month</Card.Header>
+            <br></br>
+
+            <Card.Description><strong>Food: </strong> ${julFood}, percentage of total spending: {parseFloat((julFood/julTotal*100).toFixed(2))} %, <strong>Goal: </strong>{julGoalFood > 0? julGoalFood : "Did not set a goal for this month"}</Card.Description>
+            {julGoalFood > 0?  <Card.Description>{(julGoalFood > julFood) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalFood - julFood)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julFood-julGoalFood)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Auto: </strong>${julAuto}, percentage of total spending: {parseFloat((julAuto/julTotal*100).toFixed(2))} % , <strong>Goal: </strong> {julGoalAuto > 0? julGoalAuto : "Did not set a goal for this month"} </Card.Description>
+            {julGoalAuto > 0?  <Card.Description>{(julGoalAuto > julAuto) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalAuto - julAuto)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julAuto-julGoalAuto)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Personal: </strong>${julPersonal}, percentage of total spending: {parseFloat((julPersonal/julTotal*100).toFixed(2))} %,<strong> Goal: </strong>{julGoalPersonal> 0? julGoalPersonal : "Did not set a goal for this month"}</Card.Description>
+            {julGoalPersonal > 0?  <Card.Description>{(julGoalPersonal > julPersonal) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalPersonal - julPersonal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julPersonal-julGoalPersonal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Health: </strong>${julHealth}, percentage of total spending: {parseFloat((julHealth/julTotal*100).toFixed(2))} % , <strong>Goal: </strong>{julGoalHealth > 0? julGoalHealth : "Did not set a goal for this month"}</Card.Description>
+             {julGoalHealth > 0?  <Card.Description>{(julGoalHealth > julHealth) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalHealth - julHealth)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julHealth-julGoalHealth)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Home: </strong>${julHome}, percentage of total spending: {parseFloat((julHome/julTotal*100).toFixed(2))} %, <strong>Goal: </strong>{julGoalHome > 0? julGoalHome : "Did not set a goal for this month"}</Card.Description>
+            {julGoalHome > 0?  <Card.Description>{(julGoalHome > julHome) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalHome - julHome)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julHome-julGoalHome)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Bills: </strong>${julBills}, percentage of total spending: {parseFloat((julBills/julTotal*100).toFixed(2))} %, <strong>Goal: </strong>{julGoalBills > 0? julGoalBills : "Did not set a goal for this month"}</Card.Description>
+            {julGoalBills > 0?  <Card.Description>{(julGoalBills > julBills) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalBills - julBills)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julBills-julGoalBills)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Total Spending: </strong>${julTotal}, <strong>Goal: </strong>{julGoalTotal > 0? julGoalTotal : "Did not set a goal for this month"}</Card.Description>
+            {julGoalTotal > 0?  <Card.Description>{(julGoalTotal > julTotal) ? `You reached your goal this month, saving a total of ${parseFloat((julGoalTotal - julTotal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((julTotal-julGoalTotal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+            </Card>
+            <Card className="breakdown">
+
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            {julFoodRatio > julFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
+            {julAutoRatio > julAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
+            {julPersonalRatio > julPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>
+            {julHealthRatio > julHealthPercent ? <p>You have gone over the recommended <strong>health</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>health</strong> this month! </p> : <p>You have stayed within average <strong>health</strong> spending limits this month, good job!</p>} <br></br>
+            {julHomeRatio > julHomePercent ? <p>You have gone over the recommended <strong>home</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>home</strong> this month! </p> : <p>You have stayed within average <strong>home</strong> spending limits this month, good job!</p>} <br></br>
+            {julBillsRatio > julBillsPercent ? <p>You have gone over the recommended <strong>bills</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>bills</strong> this month! </p> : <p>You have stayed within average <strong>bills</strong> spending limits this month, good job!</p>}
+            </Card>
+            </Card.Group>
+
+            
             
         </div>
     )

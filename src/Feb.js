@@ -1,12 +1,13 @@
 import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
+import{Card, Modal, Button, Segment} from 'semantic-ui-react'
 
 
 function Feb({febGoals, febExpenses, febFoodPercent, setFebFoodPercent, febAutoPercent, setFebAutoPercent, febPersonalPercent, setFebPersonalPercent, febHealthPercent, setFebHealthPercent, febHomePercent, setFebHomePercent, febBillsPercent, setFebBillsPercent}){
     // console.log(febGoals)
     // console.log(febExpenses)
 
-
+    const[open, setOpen] = useState(false)
 
     // let foodState = 15
     // let autoState = 10
@@ -147,86 +148,56 @@ function Feb({febGoals, febExpenses, febFoodPercent, setFebFoodPercent, febAutoP
             options={options}
             height = '90%'
             />
-
-
-            <h2>Breakdown for this month</h2>
-            <br></br>
-
-            <p>Food: ${febFood}, percentage of total: {parseFloat((febFood/febTotal*100).toFixed(2))} %, Goal: {febGoalFood > 0? febGoalFood : "Did not set a goal for this month"}</p>
-            {febGoalFood > 0?  <p>{(febGoalFood > febFood) ? `You reached your goal this month, going under by a total of ${febGoalFood - febFood}` : `You failed to reach your goal this month, going over by a total of ${febFood-febGoalFood}`}</p> : null }
-            <br></br>
-
-            <p>Auto: ${febAuto}, percentage of total: {parseFloat((febAuto/febTotal*100).toFixed(2))} % , Goal: {febGoalAuto > 0? febGoalAuto : "Did not set a goal for this month"} </p>
-            {febGoalAuto > 0?  <p>{(febGoalAuto > febAuto) ? `You reached your goal this month, going under by a total of ${febGoalAuto - febAuto}` : `You failed to reach your goal this month, going over by a total of ${febAuto-febGoalAuto}`}</p> : null }
-            <br></br>
-
-            <p>Personal: ${febPersonal}, percentage of total: {parseFloat((febPersonal/febTotal*100).toFixed(2))} %, Goal: {febGoalPersonal> 0? febGoalPersonal : "Did not set a goal for this month"}</p>
-            {febGoalPersonal > 0?  <p>{(febGoalPersonal > febPersonal) ? `You reached your goal this month, going under by a total of ${febGoalPersonal - febPersonal}` : `You failed to reach your goal this month, going over by a total of ${febPersonal-febGoalPersonal}`}</p> : null }
-            <br></br>
-
-            <p>Health: ${febHealth}, percentage of total: {parseFloat((febHealth/febTotal*100).toFixed(2))} % , Goal: {febGoalHealth > 0? febGoalHealth : "Did not set a goal for this month"}</p>
-             {febGoalHealth > 0?  <p>{(febGoalHealth > febHealth) ? `You reached your goal this month, going under by a total of ${febGoalHealth - febHealth}` : `You failed to reach your goal this month, going over by a total of ${febHealth-febGoalHealth}`}</p> : null }
-            <br></br>
-
-            <p>Home: ${febHome}, percentage of total: {parseFloat((febHome/febTotal*100).toFixed(2))} %, Goal: {febGoalHome > 0? febGoalHome : "Did not set a goal for this month"}</p>
-            {febGoalHome > 0?  <p>{(febGoalHome > febHome) ? `You reached your goal this month, going under by a total of ${febGoalHome - febHome}` : `You failed to reach your goal this month, going over by a total of ${febHome-febGoalHome}`}</p> : null }
-            <br></br>
-
-            <p>Bills :${febBills}, percentage of total: {parseFloat((febBills/febTotal*100).toFixed(2))} %, Goal: {febGoalBills > 0? febGoalBills : "Did not set a goal for this month"}</p>
-            {febGoalBills > 0?  <p>{(febGoalBills > febBills) ? `You reached your goal this month, going under by a total of ${febGoalBills - febBills}` : `You failed to reach your goal this month, going over by a total of ${febBills-febGoalBills}`}</p> : null }
-            <br></br>
-
-            <p>Total Spending:${febTotal}, Goal: {febGoalTotal > 0? febGoalTotal : "Did not set a goal for this month"}</p>
-            {febGoalTotal > 0?  <p>{(febGoalTotal > febTotal) ? `You reached your goal this month, going under by a total of ${febGoalTotal - febTotal}` : `You failed to reach your goal this month, going over by a total of ${febTotal-febGoalTotal}`}</p> : null }
-            <br></br>
-
-            <h2>Recommendations</h2>
-            {febFoodRatio > febFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
-            {febAutoRatio > febAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
-            {febPersonalRatio > febPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
-            {febHealthRatio > febHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
-            {febHomeRatio > febHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
-            {febBillsRatio > febBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
-
-            <form >
-                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
-                <label hmltFor ="food" >Food: </label>
+            <Modal basic onClose={() => setOpen(false)} onOpen={()=>setOpen(true)} 
+            open={open} size="small" trigger={<Button color="green"> Change benchmarks</Button>}>
+            <Segment inverted>
+            <div className="newExpenseForm" >
+            <form className="home" >
+                <h3>Change your recommendation benchmarks! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febFoodPercent}
                 onChange={(e) => setFebFoodPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="auto" >Auto: </label>
+                <label hmltFor ="auto" >Auto </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febAutoPercent}
                 onChange={(e) => setFebAutoPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="personal" >Personal: </label>
+                <label hmltFor ="personal" >Personal </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febPersonalPercent}
                 onChange={(e) => setFebPersonalPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="health" >Health: </label>
+                <label hmltFor ="health" >Health </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febHealthPercent}
                 onChange={(e) => setFebHealthPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="home" >Home: </label>
+                <label hmltFor ="home" >Home </label>
+                <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febHomePercent}
                 onChange={(e) => setFebHomePercent(e.target.value)}
                 />
                     <br></br>
-                <label hmltFor ="bills" >Bills: </label>
+                <label hmltFor ="bills" >Bills </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={febBillsPercent}
                 onChange={(e) => setFebBillsPercent(e.target.value)}
@@ -235,6 +206,57 @@ function Feb({febGoals, febExpenses, febFoodPercent, setFebFoodPercent, febAutoP
 
                 
             </form>
+            </div>
+            </Segment>
+            </Modal>
+
+    <Card.Group itemsPerRow={2}>
+                <Card className="breakdown">
+
+            <Card.Header textAlign='center' as='h2'>Breakdown for this month</Card.Header>
+            <br></br>
+
+            <Card.Description><strong>Food: </strong> ${febFood}, percentage of total spending: {parseFloat((febFood/febTotal*100).toFixed(2))} %, <strong>Goal: </strong>{febGoalFood > 0? febGoalFood : "Did not set a goal for this month"}</Card.Description>
+            {febGoalFood > 0?  <Card.Description>{(febGoalFood > febFood) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalFood - febFood)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febFood-febGoalFood)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Auto: </strong>${febAuto}, percentage of total spending: {parseFloat((febAuto/febTotal*100).toFixed(2))} % , <strong>Goal: </strong> {febGoalAuto > 0? febGoalAuto : "Did not set a goal for this month"} </Card.Description>
+            {febGoalAuto > 0?  <Card.Description>{(febGoalAuto > febAuto) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalAuto - febAuto)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febAuto-febGoalAuto)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Personal: </strong>${febPersonal}, percentage of total spending: {parseFloat((febPersonal/febTotal*100).toFixed(2))} %,<strong> Goal: </strong>{febGoalPersonal> 0? febGoalPersonal : "Did not set a goal for this month"}</Card.Description>
+            {febGoalPersonal > 0?  <Card.Description>{(febGoalPersonal > febPersonal) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalPersonal - febPersonal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febPersonal-febGoalPersonal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Health: </strong>${febHealth}, percentage of total spending: {parseFloat((febHealth/febTotal*100).toFixed(2))} % , <strong>Goal: </strong>{febGoalHealth > 0? febGoalHealth : "Did not set a goal for this month"}</Card.Description>
+             {febGoalHealth > 0?  <Card.Description>{(febGoalHealth > febHealth) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalHealth - febHealth)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febHealth-febGoalHealth)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Home: </strong>${febHome}, percentage of total spending: {parseFloat((febHome/febTotal*100).toFixed(2))} %, <strong>Goal: </strong>{febGoalHome > 0? febGoalHome : "Did not set a goal for this month"}</Card.Description>
+            {febGoalHome > 0?  <Card.Description>{(febGoalHome > febHome) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalHome - febHome)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febHome-febGoalHome)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Bills: </strong>${febBills}, percentage of total spending: {parseFloat((febBills/febTotal*100).toFixed(2))} %, <strong>Goal: </strong>{febGoalBills > 0? febGoalBills : "Did not set a goal for this month"}</Card.Description>
+            {febGoalBills > 0?  <Card.Description>{(febGoalBills > febBills) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalBills - febBills)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febBills-febGoalBills)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Total Spending: </strong>${febTotal}, <strong>Goal: </strong>{febGoalTotal > 0? febGoalTotal : "Did not set a goal for this month"}</Card.Description>
+            {febGoalTotal > 0?  <Card.Description>{(febGoalTotal > febTotal) ? `You reached your goal this month, saving a total of ${parseFloat((febGoalTotal - febTotal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((febTotal-febGoalTotal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+            </Card>
+            <Card className="breakdown">
+
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            {febFoodRatio > febFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
+            {febAutoRatio > febAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
+            {febPersonalRatio > febPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>
+            {febHealthRatio > febHealthPercent ? <p>You have gone over the recommended <strong>health</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>health</strong> this month! </p> : <p>You have stayed within average <strong>health</strong> spending limits this month, good job!</p>} <br></br>
+            {febHomeRatio > febHomePercent ? <p>You have gone over the recommended <strong>home</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>home</strong> this month! </p> : <p>You have stayed within average <strong>home</strong> spending limits this month, good job!</p>} <br></br>
+            {febBillsRatio > febBillsPercent ? <p>You have gone over the recommended <strong>bills</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>bills</strong> this month! </p> : <p>You have stayed within average <strong>bills</strong> spending limits this month, good job!</p>}
+            </Card>
+            </Card.Group>
+
+            
             
         </div>
     )

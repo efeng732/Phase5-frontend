@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useState, useEffect} from "react"
 import {Route, Switch, withRouter} from "react-router-dom"
-import {Header, Form, Input, Select, Button} from "semantic-ui-react"
+import {Header, Image, Form, Input, Select, Button} from "semantic-ui-react"
 
 
 //components
@@ -507,8 +507,11 @@ const categoryOptions =[
 
     <div class="bg">
     
+    
+       
+        
+      
       <Switch>
-
         <Route exact path="/">
           <Auth setCurrentUser={setCurrentUser} history={props.history}/>
         </Route>
@@ -517,6 +520,15 @@ const categoryOptions =[
 
         <Route exact path= "/home" >
           <div id="home" >
+            <header> <div class ="overlay">
+              <h1>GotNoMoney $</h1>
+              <Image floated="left" size='medium' circular bordered src='https://dcassetcdn.com/design_img/2472396/432085/432085_13016907_2472396_8e250fe1_image.jpg' />
+              </div>
+            
+              </header>
+          
+
+        
         <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
           <br></br>
 
@@ -594,7 +606,7 @@ const categoryOptions =[
 
         <br></br>
 
-      <div id="newExpenseForm">
+      <div className="newExpenseForm">
       <form className="home" onSubmit ={handleNewExpense} >
         <h2 style={{textAlign:"center"}}>Create New Expense </h2>
         <label htmlFor="month"> <strong>Month </strong></label> <br></br>
@@ -654,7 +666,7 @@ const categoryOptions =[
        <Route exact path ="/allgoals" >
        <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
         <GoalFilter goals={goals} category={category} setCategory={setCategory} month={month} setMonth={setMonth}/>
-         <Goals goals={goalsToDisplay} deleteGoal={deleteGoal} editGoal={editGoal}/>
+         <Goals alsoImportant={goals} goals={goalsToDisplay} deleteGoal={deleteGoal} editGoal={editGoal}/>
        </Route>
 
       <Route exact path="/allexpenses" >

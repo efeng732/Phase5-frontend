@@ -1,10 +1,13 @@
 import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
+import {Card, Button, Segment, Modal } from 'semantic-ui-react'
 
 
 function Nov({novGoals, novExpenses, novFoodPercent, setNovFoodPercent, novAutoPercent, setNovAutoPercent, novPersonalPercent, setNovPersonalPercent, novHealthPercent, setNovHealthPercent, novHomePercent, setNovHomePercent, novBillsPercent, setNovBillsPercent}){
     // console.log(novGoals)
     // console.log(novExpenses)
+
+    const[open, setOpen] = useState(false)
 
 
 
@@ -148,85 +151,55 @@ function Nov({novGoals, novExpenses, novFoodPercent, setNovFoodPercent, novAutoP
             options={options}
             />
 
-
-            <h2>Breakdown for this month</h2>
-            <br></br>
-
-            <p>Food: ${novFood}, percentage of total: {parseFloat((novFood/novTotal*100).toFixed(2))} %, Goal: {novGoalFood > 0? novGoalFood : "Did not set a goal for this month"}</p>
-            {novGoalFood > 0?  <p>{(novGoalFood > novFood) ? `You reached your goal this month, going under by a total of ${novGoalFood - novFood}` : `You failed to reach your goal this month, going over by a total of ${novFood-novGoalFood}`}</p> : null }
-            <br></br>
-
-            <p>Auto: ${novAuto}, percentage of total: {parseFloat((novAuto/novTotal*100).toFixed(2))} % , Goal: {novGoalAuto > 0? novGoalAuto : "Did not set a goal for this month"} </p>
-            {novGoalAuto > 0?  <p>{(novGoalAuto > novAuto) ? `You reached your goal this month, going under by a total of ${novGoalAuto - novAuto}` : `You failed to reach your goal this month, going over by a total of ${novAuto-novGoalAuto}`}</p> : null }
-            <br></br>
-
-            <p>Personal: ${novPersonal}, percentage of total: {parseFloat((novPersonal/novTotal*100).toFixed(2))} %, Goal: {novGoalPersonal> 0? novGoalPersonal : "Did not set a goal for this month"}</p>
-            {novGoalPersonal > 0?  <p>{(novGoalPersonal > novPersonal) ? `You reached your goal this month, going under by a total of ${novGoalPersonal - novPersonal}` : `You failed to reach your goal this month, going over by a total of ${novPersonal-novGoalPersonal}`}</p> : null }
-            <br></br>
-
-            <p>Health: ${novHealth}, percentage of total: {parseFloat((novHealth/novTotal*100).toFixed(2))} % , Goal: {novGoalHealth > 0? novGoalHealth : "Did not set a goal for this month"}</p>
-             {novGoalHealth > 0?  <p>{(novGoalHealth > novHealth) ? `You reached your goal this month, going under by a total of ${novGoalHealth - novHealth}` : `You failed to reach your goal this month, going over by a total of ${novHealth-novGoalHealth}`}</p> : null }
-            <br></br>
-
-            <p>Home: ${novHome}, percentage of total: {parseFloat((novHome/novTotal*100).toFixed(2))} %, Goal: {novGoalHome > 0? novGoalHome : "Did not set a goal for this month"}</p>
-            {novGoalHome > 0?  <p>{(novGoalHome > novHome) ? `You reached your goal this month, going under by a total of ${novGoalHome - novHome}` : `You failed to reach your goal this month, going over by a total of ${novHome-novGoalHome}`}</p> : null }
-            <br></br>
-
-            <p>Bills :${novBills}, percentage of total: {parseFloat((novBills/novTotal*100).toFixed(2))} %, Goal: {novGoalBills > 0? novGoalBills : "Did not set a goal for this month"}</p>
-            {novGoalBills > 0?  <p>{(novGoalBills > novBills) ? `You reached your goal this month, going under by a total of ${novGoalBills - novBills}` : `You failed to reach your goal this month, going over by a total of ${novBills-novGoalBills}`}</p> : null }
-            <br></br>
-
-            <p>Total Spending:${novTotal}, Goal: {novGoalTotal > 0? novGoalTotal : "Did not set a goal for this month"}</p>
-            {novGoalTotal > 0?  <p>{(novGoalTotal > novTotal) ? `You reached your goal this month, going under by a total of ${novGoalTotal - novTotal}` : `You failed to reach your goal this month, going over by a total of ${novTotal-novGoalTotal}`}</p> : null }
-            <br></br>
-
-            <h2>Recommendations</h2>
-            {novFoodRatio > novFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
-            {novAutoRatio > novAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
-            {novPersonalRatio > novPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
-            {novHealthRatio > novHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
-            {novHomeRatio > novHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
-            {novBillsRatio > novBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
-
-            <form >
-                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
-                <label hmltFor ="food" >Food: </label>
+<Modal basic onClose={() => setOpen(false)} onOpen={()=>setOpen(true)} 
+            open={open} size="small" trigger={<Button color="green"> Change benchmarks</Button>}>
+            <Segment inverted>
+            <div className="newExpenseForm">
+            <form className="home" >
+                <h3>Change your recommendation benchmarks! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novFoodPercent}
                 onChange={(e) => setNovFoodPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="auto" >Auto: </label>
+                <label hmltFor ="auto" >Auto </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novAutoPercent}
                 onChange={(e) => setNovAutoPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="personal" >Personal: </label>
+                <label hmltFor ="personal" >Personal </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novPersonalPercent}
                 onChange={(e) => setNovPersonalPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="health" >Health: </label>
+                <label hmltFor ="health" >Health </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novHealthPercent}
                 onChange={(e) => setNovHealthPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="home" >Home: </label>
+                <label hmltFor ="home" >Home  </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novHomePercent}
                 onChange={(e) => setNovHomePercent(e.target.value)}
                 />
                     <br></br>
-                <label hmltFor ="bills" >Bills: </label>
+                <label hmltFor ="bills" >Bills </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={novBillsPercent}
                 onChange={(e) => setNovBillsPercent(e.target.value)}
@@ -235,6 +208,58 @@ function Nov({novGoals, novExpenses, novFoodPercent, setNovFoodPercent, novAutoP
 
                 
             </form>
+            </div>
+            </Segment>
+            </Modal>
+
+
+    <Card.Group itemsPerRow={2}>
+                <Card className="breakdown">
+
+            <Card.Header textAlign='center' as='h2'>Breakdown for this month</Card.Header>
+            <br></br>
+
+            <Card.Description><strong>Food: </strong> ${novFood}, percentage of total spending: {parseFloat((novFood/novTotal*100).toFixed(2))} %, <strong>Goal: </strong>{novGoalFood > 0? novGoalFood : "Did not set a goal for this month"}</Card.Description>
+            {novGoalFood > 0?  <Card.Description>{(novGoalFood > novFood) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalFood - novFood)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novFood-novGoalFood)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Auto: </strong>${novAuto}, percentage of total spending: {parseFloat((novAuto/novTotal*100).toFixed(2))} % , <strong>Goal: </strong> {novGoalAuto > 0? novGoalAuto : "Did not set a goal for this month"} </Card.Description>
+            {novGoalAuto > 0?  <Card.Description>{(novGoalAuto > novAuto) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalAuto - novAuto)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novAuto-novGoalAuto)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Personal: </strong>${novPersonal}, percentage of total spending: {parseFloat((novPersonal/novTotal*100).toFixed(2))} %,<strong> Goal: </strong>{novGoalPersonal> 0? novGoalPersonal : "Did not set a goal for this month"}</Card.Description>
+            {novGoalPersonal > 0?  <Card.Description>{(novGoalPersonal > novPersonal) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalPersonal - novPersonal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novPersonal-novGoalPersonal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Health: </strong>${novHealth}, percentage of total spending: {parseFloat((novHealth/novTotal*100).toFixed(2))} % , <strong>Goal: </strong>{novGoalHealth > 0? novGoalHealth : "Did not set a goal for this month"}</Card.Description>
+             {novGoalHealth > 0?  <Card.Description>{(novGoalHealth > novHealth) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalHealth - novHealth)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novHealth-novGoalHealth)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Home: </strong>${novHome}, percentage of total spending: {parseFloat((novHome/novTotal*100).toFixed(2))} %, <strong>Goal: </strong>{novGoalHome > 0? novGoalHome : "Did not set a goal for this month"}</Card.Description>
+            {novGoalHome > 0?  <Card.Description>{(novGoalHome > novHome) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalHome - novHome)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novHome-novGoalHome)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Bills: </strong>${novBills}, percentage of total spending: {parseFloat((novBills/novTotal*100).toFixed(2))} %, <strong>Goal: </strong>{novGoalBills > 0? novGoalBills : "Did not set a goal for this month"}</Card.Description>
+            {novGoalBills > 0?  <Card.Description>{(novGoalBills > novBills) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalBills - novBills)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novBills-novGoalBills)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Total Spending: </strong>${novTotal}, <strong>Goal: </strong>{novGoalTotal > 0? novGoalTotal : "Did not set a goal for this month"}</Card.Description>
+            {novGoalTotal > 0?  <Card.Description>{(novGoalTotal > novTotal) ? `You reached your goal this month, saving a total of ${parseFloat((novGoalTotal - novTotal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((novTotal-novGoalTotal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+            </Card>
+            <Card className="breakdown">
+
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            {novFoodRatio > novFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
+            {novAutoRatio > novAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
+            {novPersonalRatio > novPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>
+            {novHealthRatio > novHealthPercent ? <p>You have gone over the recommended <strong>health</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>health</strong> this month! </p> : <p>You have stayed within average <strong>health</strong> spending limits this month, good job!</p>} <br></br>
+            {novHomeRatio > novHomePercent ? <p>You have gone over the recommended <strong>home</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>home</strong> this month! </p> : <p>You have stayed within average <strong>home</strong> spending limits this month, good job!</p>} <br></br>
+            {novBillsRatio > novBillsPercent ? <p>You have gone over the recommended <strong>bills</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>bills</strong> this month! </p> : <p>You have stayed within average <strong>bills</strong> spending limits this month, good job!</p>}
+            </Card>
+            </Card.Group>
+
+           
             
         </div>
     )

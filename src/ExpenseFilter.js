@@ -138,7 +138,7 @@ function ExpenseFilter ({expenses, category, setCategory, month, setMonth}) {
         Reset 
         </button> 
         }
-         {categoryAll? 
+         {/* {categoryAll? 
 
             <button 
             style={{backgroundColor: "#21BA45"}}
@@ -155,7 +155,7 @@ function ExpenseFilter ({expenses, category, setCategory, month, setMonth}) {
             >
                 All
             </button> 
-                    }
+                    } */}
                 { categoryFood? 
             <button 
             value= "Food"
@@ -240,7 +240,7 @@ function ExpenseFilter ({expenses, category, setCategory, month, setMonth}) {
             <button 
             value ="Bills"
             onClick={handleClick}
-            style={{backgroundColor:"lawgreen"}} >
+            style={{backgroundColor:"#21BA45"}} >
                 Bills
             </button>
              : <button 

@@ -1,10 +1,12 @@
 import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
+import {Card, Button, Modal, Segment} from 'semantic-ui-react'
 
 
 function Aug({augGoals, augExpenses, augFoodPercent, setAugFoodPercent, augAutoPercent, setAugAutoPercent, augPersonalPercent, setAugPersonalPercent, augHealthPercent, setAugHealthPercent, augHomePercent, setAugHomePercent, augBillsPercent, setAugBillsPercent}){
     // console.log(augGoals)
     // console.log(augExpenses)
+    const[open, setOpen] = useState(false)
 
 
 
@@ -147,85 +149,55 @@ function Aug({augGoals, augExpenses, augFoodPercent, setAugFoodPercent, augAutoP
             height = '90%'
             />
 
-
-            <h2>Breakdown for this month</h2>
-            <br></br>
-
-            <p>Food: ${augFood}, percentage of total: {parseFloat((augFood/augTotal*100).toFixed(2))} %, Goal: {augGoalFood > 0? augGoalFood : "Did not set a goal for this month"}</p>
-            {augGoalFood > 0?  <p>{(augGoalFood > augFood) ? `You reached your goal this month, going under by a total of ${augGoalFood - augFood}` : `You failed to reach your goal this month, going over by a total of ${augFood-augGoalFood}`}</p> : null }
-            <br></br>
-
-            <p>Auto: ${augAuto}, percentage of total: {parseFloat((augAuto/augTotal*100).toFixed(2))} % , Goal: {augGoalAuto > 0? augGoalAuto : "Did not set a goal for this month"} </p>
-            {augGoalAuto > 0?  <p>{(augGoalAuto > augAuto) ? `You reached your goal this month, going under by a total of ${augGoalAuto - augAuto}` : `You failed to reach your goal this month, going over by a total of ${augAuto-augGoalAuto}`}</p> : null }
-            <br></br>
-
-            <p>Personal: ${augPersonal}, percentage of total: {parseFloat((augPersonal/augTotal*100).toFixed(2))} %, Goal: {augGoalPersonal> 0? augGoalPersonal : "Did not set a goal for this month"}</p>
-            {augGoalPersonal > 0?  <p>{(augGoalPersonal > augPersonal) ? `You reached your goal this month, going under by a total of ${augGoalPersonal - augPersonal}` : `You failed to reach your goal this month, going over by a total of ${augPersonal-augGoalPersonal}`}</p> : null }
-            <br></br>
-
-            <p>Health: ${augHealth}, percentage of total: {parseFloat((augHealth/augTotal*100).toFixed(2))} % , Goal: {augGoalHealth > 0? augGoalHealth : "Did not set a goal for this month"}</p>
-             {augGoalHealth > 0?  <p>{(augGoalHealth > augHealth) ? `You reached your goal this month, going under by a total of ${augGoalHealth - augHealth}` : `You failed to reach your goal this month, going over by a total of ${augHealth-augGoalHealth}`}</p> : null }
-            <br></br>
-
-            <p>Home: ${augHome}, percentage of total: {parseFloat((augHome/augTotal*100).toFixed(2))} %, Goal: {augGoalHome > 0? augGoalHome : "Did not set a goal for this month"}</p>
-            {augGoalHome > 0?  <p>{(augGoalHome > augHome) ? `You reached your goal this month, going under by a total of ${augGoalHome - augHome}` : `You failed to reach your goal this month, going over by a total of ${augHome-augGoalHome}`}</p> : null }
-            <br></br>
-
-            <p>Bills :${augBills}, percentage of total: {parseFloat((augBills/augTotal*100).toFixed(2))} %, Goal: {augGoalBills > 0? augGoalBills : "Did not set a goal for this month"}</p>
-            {augGoalBills > 0?  <p>{(augGoalBills > augBills) ? `You reached your goal this month, going under by a total of ${augGoalBills - augBills}` : `You failed to reach your goal this month, going over by a total of ${augBills-augGoalBills}`}</p> : null }
-            <br></br>
-
-            <p>Total Spending:${augTotal}, Goal: {augGoalTotal > 0? augGoalTotal : "Did not set a goal for this month"}</p>
-            {augGoalTotal > 0?  <p>{(augGoalTotal > augTotal) ? `You reached your goal this month, going under by a total of ${augGoalTotal - augTotal}` : `You failed to reach your goal this month, going over by a total of ${augTotal-augGoalTotal}`}</p> : null }
-            <br></br>
-
-            <h2>Recommendations</h2>
-            {augFoodRatio > augFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
-            {augAutoRatio > augAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
-            {augPersonalRatio > augPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
-            {augHealthRatio > augHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
-            {augHomeRatio > augHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
-            {augBillsRatio > augBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
-
-            <form >
-                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
-                <label hmltFor ="food" >Food: </label>
+<Modal basic onClose={() => setOpen(false)} onOpen={()=>setOpen(true)} 
+            open={open} size="small" trigger={<Button color="green"> Change benchmarks</Button>}>
+            <Segment inverted>
+            <div className="newExpenseForm">
+            <form className="home">
+                <h3>Change your recommendation benchmarks! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food</label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augFoodPercent}
                 onChange={(e) => setAugFoodPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="auto" >Auto: </label>
+                <label hmltFor ="auto" >Auto </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augAutoPercent}
                 onChange={(e) => setAugAutoPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="personal" >Personal: </label>
+                <label hmltFor ="personal" >Personal </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augPersonalPercent}
                 onChange={(e) => setAugPersonalPercent(e.target.value)}
                 />
-                <br></br>
-                <label hmltFor ="health" >Health: </label>
+                <br></br> 
+                <label hmltFor ="health" >Health </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augHealthPercent}
                 onChange={(e) => setAugHealthPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="home" >Home: </label>
+                <label hmltFor ="home" >Home </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augHomePercent}
                 onChange={(e) => setAugHomePercent(e.target.value)}
                 />
                     <br></br>
-                <label hmltFor ="bills" >Bills: </label>
+                <label hmltFor ="bills" >Bills </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={augBillsPercent}
                 onChange={(e) => setAugBillsPercent(e.target.value)}
@@ -234,6 +206,57 @@ function Aug({augGoals, augExpenses, augFoodPercent, setAugFoodPercent, augAutoP
 
                 
             </form>
+            </div>
+            </Segment>
+            </Modal>
+
+    <Card.Group itemsPerRow={2}>
+                <Card className="breakdown">
+
+            <Card.Header textAlign='center' as='h2'>Breakdown for this month</Card.Header>
+            <br></br>
+
+            <Card.Description><strong>Food: </strong> ${augFood}, percentage of total spending: {parseFloat((augFood/augTotal*100).toFixed(2))} %, <strong>Goal: </strong>{augGoalFood > 0? augGoalFood : "Did not set a goal for this month"}</Card.Description>
+            {augGoalFood > 0?  <Card.Description>{(augGoalFood > augFood) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalFood - augFood)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augFood-augGoalFood)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Auto: </strong>${augAuto}, percentage of total spending: {parseFloat((augAuto/augTotal*100).toFixed(2))} % , <strong>Goal: </strong> {augGoalAuto > 0? augGoalAuto : "Did not set a goal for this month"} </Card.Description>
+            {augGoalAuto > 0?  <Card.Description>{(augGoalAuto > augAuto) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalAuto - augAuto)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augAuto-augGoalAuto)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Personal: </strong>${augPersonal}, percentage of total spending: {parseFloat((augPersonal/augTotal*100).toFixed(2))} %,<strong> Goal: </strong>{augGoalPersonal> 0? augGoalPersonal : "Did not set a goal for this month"}</Card.Description>
+            {augGoalPersonal > 0?  <Card.Description>{(augGoalPersonal > augPersonal) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalPersonal - augPersonal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augPersonal-augGoalPersonal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Health: </strong>${augHealth}, percentage of total spending: {parseFloat((augHealth/augTotal*100).toFixed(2))} % , <strong>Goal: </strong>{augGoalHealth > 0? augGoalHealth : "Did not set a goal for this month"}</Card.Description>
+             {augGoalHealth > 0?  <Card.Description>{(augGoalHealth > augHealth) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalHealth - augHealth)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augHealth-augGoalHealth)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Home: </strong>${augHome}, percentage of total spending: {parseFloat((augHome/augTotal*100).toFixed(2))} %, <strong>Goal: </strong>{augGoalHome > 0? augGoalHome : "Did not set a goal for this month"}</Card.Description>
+            {augGoalHome > 0?  <Card.Description>{(augGoalHome > augHome) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalHome - augHome)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augHome-augGoalHome)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Bills: </strong>${augBills}, percentage of total spending: {parseFloat((augBills/augTotal*100).toFixed(2))} %, <strong>Goal: </strong>{augGoalBills > 0? augGoalBills : "Did not set a goal for this month"}</Card.Description>
+            {augGoalBills > 0?  <Card.Description>{(augGoalBills > augBills) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalBills - augBills)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augBills-augGoalBills)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Total Spending: </strong>${augTotal}, <strong>Goal: </strong>{augGoalTotal > 0? augGoalTotal : "Did not set a goal for this month"}</Card.Description>
+            {augGoalTotal > 0?  <Card.Description>{(augGoalTotal > augTotal) ? `You reached your goal this month, saving a total of ${parseFloat((augGoalTotal - augTotal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((augTotal-augGoalTotal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+            </Card>
+            <Card className="breakdown">
+
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            {augFoodRatio > augFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
+            {augAutoRatio > augAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
+            {augPersonalRatio > augPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>
+            {augHealthRatio > augHealthPercent ? <p>You have gone over the recommended <strong>health</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>health</strong> this month! </p> : <p>You have stayed within average <strong>health</strong> spending limits this month, good job!</p>} <br></br>
+            {augHomeRatio > augHomePercent ? <p>You have gone over the recommended <strong>home</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>home</strong> this month! </p> : <p>You have stayed within average <strong>home</strong> spending limits this month, good job!</p>} <br></br>
+            {augBillsRatio > augBillsPercent ? <p>You have gone over the recommended <strong>bills</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>bills</strong> this month! </p> : <p>You have stayed within average <strong>bills</strong> spending limits this month, good job!</p>}
+            </Card>
+            </Card.Group>
+
+           
             
         </div>
     )

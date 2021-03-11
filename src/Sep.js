@@ -1,11 +1,13 @@
 import {useState, useEffect} from "react"
 import {Pie} from 'react-chartjs-2'
+import {Card, Button, Modal, Segment} from 'semantic-ui-react'
 
 
 function Sep({sepGoals, sepExpenses, sepFoodPercent, setSepFoodPercent, sepAutoPercent, setSepAutoPercent, sepPersonalPercent, setSepPersonalPercent, sepHealthPercent, setSepHealthPercent, sepHomePercent, setSepHomePercent, sepBillsPercent, setSepBillsPercent}){
     // console.log(sepGoals)
     // console.log(sepExpenses)
 
+    const[open, setOpen] = useState(false)
 
 
     // let foodState = 15
@@ -149,86 +151,55 @@ function Sep({sepGoals, sepExpenses, sepFoodPercent, setSepFoodPercent, sepAutoP
             options={options}
             height = '90%'
             />
-
-
-            <h2>Breakdown for this month</h2>
-            <br></br>
-
-            <p>Food: ${sepFood}, percentage of total: {parseFloat((sepFood/sepTotal*100).toFixed(2))} %, Goal: {sepGoalFood > 0? sepGoalFood : "Did not set a goal for this month"}</p>
-            {sepGoalFood > 0?  <p>{(sepGoalFood > sepFood) ? `You reached your goal this month, going under by a total of ${sepGoalFood - sepFood}` : `You failed to reach your goal this month, going over by a total of ${sepFood-sepGoalFood}`}</p> : null }
-            <br></br>
-
-            <p>Auto: ${sepAuto}, percentage of total: {parseFloat((sepAuto/sepTotal*100).toFixed(2))} % , Goal: {sepGoalAuto > 0? sepGoalAuto : "Did not set a goal for this month"} </p>
-            {sepGoalAuto > 0?  <p>{(sepGoalAuto > sepAuto) ? `You reached your goal this month, going under by a total of ${sepGoalAuto - sepAuto}` : `You failed to reach your goal this month, going over by a total of ${sepAuto-sepGoalAuto}`}</p> : null }
-            <br></br>
-
-            <p>Personal: ${sepPersonal}, percentage of total: {parseFloat((sepPersonal/sepTotal*100).toFixed(2))} %, Goal: {sepGoalPersonal> 0? sepGoalPersonal : "Did not set a goal for this month"}</p>
-            {sepGoalPersonal > 0?  <p>{(sepGoalPersonal > sepPersonal) ? `You reached your goal this month, going under by a total of ${sepGoalPersonal - sepPersonal}` : `You failed to reach your goal this month, going over by a total of ${sepPersonal-sepGoalPersonal}`}</p> : null }
-            <br></br>
-
-            <p>Health: ${sepHealth}, percentage of total: {parseFloat((sepHealth/sepTotal*100).toFixed(2))} % , Goal: {sepGoalHealth > 0? sepGoalHealth : "Did not set a goal for this month"}</p>
-             {sepGoalHealth > 0?  <p>{(sepGoalHealth > sepHealth) ? `You reached your goal this month, going under by a total of ${sepGoalHealth - sepHealth}` : `You failed to reach your goal this month, going over by a total of ${sepHealth-sepGoalHealth}`}</p> : null }
-            <br></br>
-
-            <p>Home: ${sepHome}, percentage of total: {parseFloat((sepHome/sepTotal*100).toFixed(2))} %, Goal: {sepGoalHome > 0? sepGoalHome : "Did not set a goal for this month"}</p>
-            {sepGoalHome > 0?  <p>{(sepGoalHome > sepHome) ? `You reached your goal this month, going under by a total of ${sepGoalHome - sepHome}` : `You failed to reach your goal this month, going over by a total of ${sepHome-sepGoalHome}`}</p> : null }
-            <br></br>
-
-            <p>Bills :${sepBills}, percentage of total: {parseFloat((sepBills/sepTotal*100).toFixed(2))} %, Goal: {sepGoalBills > 0? sepGoalBills : "Did not set a goal for this month"}</p>
-            {sepGoalBills > 0?  <p>{(sepGoalBills > sepBills) ? `You reached your goal this month, going under by a total of ${sepGoalBills - sepBills}` : `You failed to reach your goal this month, going over by a total of ${sepBills-sepGoalBills}`}</p> : null }
-            <br></br>
-
-            <p>Total Spending:${sepTotal}, Goal: {sepGoalTotal > 0? sepGoalTotal : "Did not set a goal for this month"}</p>
-            {sepGoalTotal > 0?  <p>{(sepGoalTotal > sepTotal) ? `You reached your goal this month, going under by a total of ${sepGoalTotal - sepTotal}` : `You failed to reach your goal this month, going over by a total of ${sepTotal-sepGoalTotal}`}</p> : null }
-            <br></br>
-
-            <h2>Recommendations</h2>
-            {sepFoodRatio > sepFoodPercent ? <p>You have gone over the recommended food spending for the month, consider adjusting your total budget or reducing the amount you spend on food this month! </p> : <p>You have stayed within average food spending limits this month!</p>}
-            {sepAutoRatio > sepAutoPercent ? <p>You have gone over the recommended auto spending for the month, consider adjusting your total budget or reducing the amount you spend on auto this month! </p> : <p>You have stayed within average autospending limits this month!</p>}
-            {sepPersonalRatio > sepPersonalPercent ? <p>You have gone over the recommended personal spending for the month, consider adjusting your total budget or reducing the amount you spend on personal this month! </p> : <p>You have stayed within average personal spending limits this month, good job!</p>}
-            {sepHealthRatio > sepHealthPercent ? <p>You have gone over the recommended health spending for the month, consider adjusting your total budget or reducing the amount you spend on health this month! </p> : <p>You have stayed within average health spending limits this month, good job!</p>}
-            {sepHomeRatio > sepHomePercent ? <p>You have gone over the recommended home spending for the month, consider adjusting your total budget or reducing the amount you spend on home this month! </p> : <p>You have stayed within average home spending limits this month, good job!</p>}
-            {sepBillsRatio > sepBillsPercent ? <p>You have gone over the recommended bills spending for the month, consider adjusting your total budget or reducing the amount you spend on bills this month! </p> : <p>You have stayed within average bills spending limits this month, good job!</p>}
-
-            <form >
-                <h3>Change your recommendation constraints! (by percentage of total spending)</h3>
-                <label hmltFor ="food" >Food: </label>
+             <Modal basic onClose={() => setOpen(false)} onOpen={()=>setOpen(true)} 
+            open={open} size="small" trigger={<Button color="green"> Change benchmarks</Button>}>
+            <Segment inverted>
+            <div className="newExpenseForm" >
+            <form className="home">
+                <h3>Change your recommendation benchmarks! (by percentage of total spending)</h3>
+                <label hmltFor ="food" >Food </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepFoodPercent}
                 onChange={(e) => setSepFoodPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="auto" >Auto: </label>
+                <label hmltFor ="auto" >Auto </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepAutoPercent}
                 onChange={(e) => setSepAutoPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="personal" >Personal: </label>
+                <label hmltFor ="personal" >Personal </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepPersonalPercent}
                 onChange={(e) => setSepPersonalPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="health" >Health: </label>
+                <label hmltFor ="health" >Health </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepHealthPercent}
                 onChange={(e) => setSepHealthPercent(e.target.value)}
                 />
                 <br></br>
-                <label hmltFor ="home" >Home: </label>
+                <label hmltFor ="home" >Home </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepHomePercent}
                 onChange={(e) => setSepHomePercent(e.target.value)}
                 />
                     <br></br>
-                <label hmltFor ="bills" >Bills: </label>
+                <label hmltFor ="bills" >Bills </label> <br></br>
                 <input
+                className="show"
                 type="number"
                 value={sepBillsPercent}
                 onChange={(e) => setSepBillsPercent(e.target.value)}
@@ -237,6 +208,58 @@ function Sep({sepGoals, sepExpenses, sepFoodPercent, setSepFoodPercent, sepAutoP
 
                 
             </form>
+            </div>
+            </Segment>
+            </Modal>
+
+
+    <Card.Group itemsPerRow={2}>
+                <Card className="breakdown">
+
+            <Card.Header textAlign='center' as='h2'>Breakdown for this month</Card.Header>
+            <br></br>
+
+            <Card.Description><strong>Food: </strong> ${sepFood}, percentage of total spending: {parseFloat((sepFood/sepTotal*100).toFixed(2))} %, <strong>Goal: </strong>{sepGoalFood > 0? sepGoalFood : "Did not set a goal for this month"}</Card.Description>
+            {sepGoalFood > 0?  <Card.Description>{(sepGoalFood > sepFood) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalFood - sepFood)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepFood-sepGoalFood)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Auto: </strong>${sepAuto}, percentage of total spending: {parseFloat((sepAuto/sepTotal*100).toFixed(2))} % , <strong>Goal: </strong> {sepGoalAuto > 0? sepGoalAuto : "Did not set a goal for this month"} </Card.Description>
+            {sepGoalAuto > 0?  <Card.Description>{(sepGoalAuto > sepAuto) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalAuto - sepAuto)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepAuto-sepGoalAuto)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Personal: </strong>${sepPersonal}, percentage of total spending: {parseFloat((sepPersonal/sepTotal*100).toFixed(2))} %,<strong> Goal: </strong>{sepGoalPersonal> 0? sepGoalPersonal : "Did not set a goal for this month"}</Card.Description>
+            {sepGoalPersonal > 0?  <Card.Description>{(sepGoalPersonal > sepPersonal) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalPersonal - sepPersonal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepPersonal-sepGoalPersonal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Health: </strong>${sepHealth}, percentage of total spending: {parseFloat((sepHealth/sepTotal*100).toFixed(2))} % , <strong>Goal: </strong>{sepGoalHealth > 0? sepGoalHealth : "Did not set a goal for this month"}</Card.Description>
+             {sepGoalHealth > 0?  <Card.Description>{(sepGoalHealth > sepHealth) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalHealth - sepHealth)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepHealth-sepGoalHealth)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Home: </strong>${sepHome}, percentage of total spending: {parseFloat((sepHome/sepTotal*100).toFixed(2))} %, <strong>Goal: </strong>{sepGoalHome > 0? sepGoalHome : "Did not set a goal for this month"}</Card.Description>
+            {sepGoalHome > 0?  <Card.Description>{(sepGoalHome > sepHome) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalHome - sepHome)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepHome-sepGoalHome)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Bills: </strong>${sepBills}, percentage of total spending: {parseFloat((sepBills/sepTotal*100).toFixed(2))} %, <strong>Goal: </strong>{sepGoalBills > 0? sepGoalBills : "Did not set a goal for this month"}</Card.Description>
+            {sepGoalBills > 0?  <Card.Description>{(sepGoalBills > sepBills) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalBills - sepBills)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepBills-sepGoalBills)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+
+            <Card.Description><strong>Total Spending: </strong>${sepTotal}, <strong>Goal: </strong>{sepGoalTotal > 0? sepGoalTotal : "Did not set a goal for this month"}</Card.Description>
+            {sepGoalTotal > 0?  <Card.Description>{(sepGoalTotal > sepTotal) ? `You reached your goal this month, saving a total of ${parseFloat((sepGoalTotal - sepTotal)).toFixed(2)}` : `You failed to reach your goal this month, going over by a total of ${parseFloat((sepTotal-sepGoalTotal)).toFixed(2)}`}</Card.Description> : null }
+            <br></br>
+            </Card>
+            <Card className="breakdown">
+
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            {sepFoodRatio > sepFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
+            {sepAutoRatio > sepAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
+            {sepPersonalRatio > sepPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>
+            {sepHealthRatio > sepHealthPercent ? <p>You have gone over the recommended <strong>health</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>health</strong> this month! </p> : <p>You have stayed within average <strong>health</strong> spending limits this month, good job!</p>} <br></br>
+            {sepHomeRatio > sepHomePercent ? <p>You have gone over the recommended <strong>home</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>home</strong> this month! </p> : <p>You have stayed within average <strong>home</strong> spending limits this month, good job!</p>} <br></br>
+            {sepBillsRatio > sepBillsPercent ? <p>You have gone over the recommended <strong>bills</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>bills</strong> this month! </p> : <p>You have stayed within average <strong>bills</strong> spending limits this month, good job!</p>}
+            </Card>
+            </Card.Group>
+
+           
             
         </div>
     )

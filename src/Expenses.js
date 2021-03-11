@@ -4,7 +4,7 @@ import {Line} from "react-chartjs-2"
 import { Card } from "semantic-ui-react"
 
 
-function Expenses ({goals, important, expenses, deleteExpense}) {
+function Expenses({goals, important, expenses, deleteExpense}) {
     const[showTotal, setShowTotal] = useState(false)
     const[showFood, setShowFood] = useState(false)
     const[showAuto, setShowAuto] = useState(false)
@@ -12,6 +12,7 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     const[showHealth, setShowHealth] = useState(false)
     const[showHome, setShowHome] = useState(false)
     const[showBills, setShowBills] = useState(false)
+    
 
 
     let janTotal = 0;
@@ -27,42 +28,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novTotal = 0;
     let decTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].month === "Jan") {
-            janTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].month === "Jan") {
+            janTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Feb") {
-            febTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Feb") {
+            febTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Mar") {
-            marTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Mar") {
+            marTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Apr") {
-            aprTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Apr") {
+            aprTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "May") {
-            mayTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "May") {
+            mayTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Jun") {
-            junTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Jun") {
+            junTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Jul") {
-            julTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Jul") {
+            julTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Aug") {
-            augTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Aug") {
+            augTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Sep") {
-            sepTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Sep") {
+            sepTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Oct") {
-            octTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Oct") {
+            octTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Nov") {
-            novTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Nov") {
+            novTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].month === "Dec") {
-            decTotal += parseFloat(expenses[i].price)
+        else if(important[i].month === "Dec") {
+            decTotal += parseFloat(important[i].price)
         }
     }
 
@@ -132,42 +133,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novFoodTotal = 0;
     let decFoodTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Food" && expenses[i].month ==="Jan") {
-            janFoodTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Food" && important[i].month ==="Jan") {
+            janFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Feb") {
-            febFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Feb") {
+            febFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Mar") {
-            marFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Mar") {
+            marFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food"&& expenses[i].month ==="Apr") {
-            aprFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food"&& important[i].month ==="Apr") {
+            aprFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="May") {
-            mayFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="May") {
+            mayFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Jun") {
-            junFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Jun") {
+            junFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Jul") {
-            julFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Jul") {
+            julFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Aug") {
-            augFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Aug") {
+            augFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Sep") {
-            sepFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Sep") {
+            sepFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food"&& expenses[i].month ==="Oct") {
-            octFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food"&& important[i].month ==="Oct") {
+            octFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Nov") {
-            novFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Nov") {
+            novFoodTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Food" && expenses[i].month ==="Dec") {
-            decFoodTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Food" && important[i].month ==="Dec") {
+            decFoodTotal += parseFloat(important[i].price)
         }
     }
 
@@ -238,42 +239,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novAutoTotal = 0;
     let decAutoTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Auto" && expenses[i].month ==="Jan") {
-            janAutoTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Auto" && important[i].month ==="Jan") {
+            janAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Feb") {
-            febAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Feb") {
+            febAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Mar") {
-            marAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Mar") {
+            marAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto"&& expenses[i].month ==="Apr") {
-            aprAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto"&& important[i].month ==="Apr") {
+            aprAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="May") {
-            mayAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="May") {
+            mayAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Jun") {
-            junAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Jun") {
+            junAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Jul") {
-            julAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Jul") {
+            julAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Aug") {
-            augAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Aug") {
+            augAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Sep") {
-            sepAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Sep") {
+            sepAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto"&& expenses[i].month ==="Oct") {
-            octAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto"&& important[i].month ==="Oct") {
+            octAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Nov") {
-            novAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Nov") {
+            novAutoTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Auto" && expenses[i].month ==="Dec") {
-            decAutoTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Auto" && important[i].month ==="Dec") {
+            decAutoTotal += parseFloat(important[i].price)
         }
     }
 
@@ -343,42 +344,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novPersonalTotal = 0;
     let decPersonalTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Personal" && expenses[i].month ==="Jan") {
-            janPersonalTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Personal" && important[i].month ==="Jan") {
+            janPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Feb") {
-            febPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Feb") {
+            febPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Mar") {
-            marPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Mar") {
+            marPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal"&& expenses[i].month ==="Apr") {
-            aprPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal"&& important[i].month ==="Apr") {
+            aprPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="May") {
-            mayPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="May") {
+            mayPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Jun") {
-            junPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Jun") {
+            junPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Jul") {
-            julPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Jul") {
+            julPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Aug") {
-            augPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Aug") {
+            augPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Sep") {
-            sepPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Sep") {
+            sepPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal"&& expenses[i].month ==="Oct") {
-            octPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal"&& important[i].month ==="Oct") {
+            octPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Nov") {
-            novPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Nov") {
+            novPersonalTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Personal" && expenses[i].month ==="Dec") {
-            decPersonalTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Personal" && important[i].month ==="Dec") {
+            decPersonalTotal += parseFloat(important[i].price)
         }
     }
 
@@ -448,42 +449,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novHealthTotal = 0;
     let decHealthTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Health" && expenses[i].month ==="Jan") {
-            janHealthTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Health" && important[i].month ==="Jan") {
+            janHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Feb") {
-            febHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Feb") {
+            febHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Mar") {
-            marHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Mar") {
+            marHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health"&& expenses[i].month ==="Apr") {
-            aprHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health"&& important[i].month ==="Apr") {
+            aprHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="May") {
-            mayHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="May") {
+            mayHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Jun") {
-            junHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Jun") {
+            junHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Jul") {
-            julHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Jul") {
+            julHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Aug") {
-            augHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Aug") {
+            augHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Sep") {
-            sepHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Sep") {
+            sepHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health"&& expenses[i].month ==="Oct") {
-            octHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health"&& important[i].month ==="Oct") {
+            octHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Nov") {
-            novHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Nov") {
+            novHealthTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Health" && expenses[i].month ==="Dec") {
-            decHealthTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Health" && important[i].month ==="Dec") {
+            decHealthTotal += parseFloat(important[i].price)
         }
     }
 
@@ -555,42 +556,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novHomeTotal = 0;
     let decHomeTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Home" && expenses[i].month ==="Jan") {
-            janHomeTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Home" && important[i].month ==="Jan") {
+            janHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Feb") {
-            febHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Feb") {
+            febHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Mar") {
-            marHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Mar") {
+            marHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home"&& expenses[i].month ==="Apr") {
-            aprHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home"&& important[i].month ==="Apr") {
+            aprHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="May") {
-            mayHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="May") {
+            mayHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Jun") {
-            junHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Jun") {
+            junHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Jul") {
-            julHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Jul") {
+            julHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Aug") {
-            augHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Aug") {
+            augHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Sep") {
-            sepHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Sep") {
+            sepHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home"&& expenses[i].month ==="Oct") {
-            octHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home"&& important[i].month ==="Oct") {
+            octHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Nov") {
-            novHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Nov") {
+            novHomeTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Home" && expenses[i].month ==="Dec") {
-            decHomeTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Home" && important[i].month ==="Dec") {
+            decHomeTotal += parseFloat(important[i].price)
         }
     }
 
@@ -661,42 +662,42 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     let novBillsTotal = 0;
     let decBillsTotal = 0;
 
-    for( let i = 0; i<expenses.length; i++) {
-        if(expenses[i].category === "Bills" && expenses[i].month ==="Jan") {
-            janBillsTotal += parseFloat(expenses[i].price)
+    for( let i = 0; i<important.length; i++) {
+        if(important[i].category === "Bills" && important[i].month ==="Jan") {
+            janBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Feb") {
-            febBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Feb") {
+            febBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Mar") {
-            marBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Mar") {
+            marBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills"&& expenses[i].month ==="Apr") {
-            aprBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills"&& important[i].month ==="Apr") {
+            aprBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="May") {
-            mayBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="May") {
+            mayBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Jun") {
-            junBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Jun") {
+            junBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Jul") {
-            julBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Jul") {
+            julBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Aug") {
-            augBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Aug") {
+            augBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Sep") {
-            sepBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Sep") {
+            sepBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills"&& expenses[i].month ==="Oct") {
-            octBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills"&& important[i].month ==="Oct") {
+            octBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Nov") {
-            novBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Nov") {
+            novBillsTotal += parseFloat(important[i].price)
         }
-        else if(expenses[i].category === "Bills" && expenses[i].month ==="Dec") {
-            decBillsTotal += parseFloat(expenses[i].price)
+        else if(important[i].category === "Bills" && important[i].month ==="Dec") {
+            decBillsTotal += parseFloat(important[i].price)
         }
     }
 
@@ -754,6 +755,7 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
 
     const expenseComponents = expenses.map(expense => {
         return ( <ExpenseCard
+        important={important}
         key={expense.id}
         expense={expense}
         expenses={expenses}
@@ -942,7 +944,7 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 data: [janHomeTotal, febHomeTotal, marHomeTotal, aprHomeTotal, mayHomeTotal, junHomeTotal, julHomeTotal, augHomeTotal, sepHomeTotal, octHomeTotal, novHomeTotal, decHomeTotal]
         },
         {
-            label: 'Monthly Health Goals',
+            label: 'Monthly Home Goals',
             fill: false, 
             lineTension: 0.5, 
             backgroundColor: 'rgba(75,192,192, 0.2', 
@@ -992,9 +994,14 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
     return (
     <div>
         <br></br>
-        <button onClick={() => setShowTotal(!showTotal)}>
+        {showTotal? 
+        <button 
+        style={{backgroundColor:"#21BA45"}}
+         onClick={() => setShowTotal(!showTotal)}>
             Show monthly totals
-        </button>
+        </button> : <button onClick={() => setShowTotal(!showTotal)}>
+            Show monthly totals
+        </button> }
         {showTotal? 
         <Line 
             data={{
@@ -1029,7 +1036,7 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                         },
                         ticks: {
                             min: 2000,
-                            max: 7500,
+                            max: 5500,
                             stepSize: 500,
                             fontColor: 'black'
                         }
@@ -1051,10 +1058,15 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 }
             }}
             /> : null}
+            {showFood? <button 
+            style={{backgroundColor:"#21BA45"}}
+            onClick={() => setShowFood(!showFood)}>
+            Show monthly food
+        </button> :
 
     <button onClick={() => setShowFood(!showFood)}>
             Show monthly food
-        </button>
+        </button> }
         {showFood? 
         <Line 
             data={{
@@ -1111,10 +1123,15 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 }}
             /> : null}
 
+{showAuto?  <button 
+    style={{backgroundColor:"#21BA45"}}
+    onClick={() => setShowAuto(!showAuto)}>
+            Show monthly auto
+        </button> :
 
     <button onClick={() => setShowAuto(!showAuto)}>
             Show monthly auto
-        </button>
+        </button> }
         {showAuto? 
         <Line 
             data={{
@@ -1171,10 +1188,13 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 }}
             /> : null}
 
-
-    <button onClick={() => setShowPersonal(!showPersonal)}>
+         {showPersonal? <button
+         style={{backgroundColor:"#21BA45"}}  onClick={() => setShowPersonal(!showPersonal)}>
             Show monthly personal
-        </button>
+        </button> :
+     <button onClick={() => setShowPersonal(!showPersonal)}>
+            Show monthly personal
+        </button> }
         {showPersonal? 
         <Line 
             data={{
@@ -1208,7 +1228,7 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                             },
                             ticks: {
                                 min: 0,
-                                max: 4610,
+                                max: 3501,
                                 stepSize: 500,
                                 fontColor: 'black'
                             }
@@ -1230,10 +1250,15 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                     }
                 }}
             /> : null}
+            {showHealth?  <button 
+            style={{backgroundColor:"#21BA45"}}
+            onClick={() => setShowHealth(!showHealth)}>
+            Show monthly health
+        </button> :
 
 <button onClick={() => setShowHealth(!showHealth)}>
             Show monthly health
-        </button>
+        </button> }
         {showHealth? 
         <Line 
             data={{
@@ -1291,9 +1316,14 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
             /> : null}
 
 
+                {showHome? <button 
+                style={{backgroundColor:"#21BA45"}} 
+                onClick={() => setShowHome(!showHome)}>
+            Show monthly home
+        </button>  : 
 <button onClick={() => setShowHome(!showHome)}>
             Show monthly home
-        </button>
+        </button> }
         {showHome? 
         <Line 
             data={{
@@ -1305,7 +1335,8 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 title: {
                     display: true,
                     text: 'Monthly home spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,
@@ -1348,10 +1379,14 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                     }
                 }}
             /> : null}
-
+{showBills? <button
+ style={{backgroundColor:"#21BA45"}}
+ onClick={() => setShowBills(!showBills)}>
+            Show monthly bills
+        </button> :
 <button onClick={() => setShowBills(!showBills)}>
             Show monthly bills
-        </button>
+        </button> }
         {showBills? 
         <Line 
             data={{
@@ -1363,7 +1398,8 @@ function Expenses ({goals, important, expenses, deleteExpense}) {
                 title: {
                     display: true,
                     text: 'Monthly bills spending',
-                    fontSize: 20
+                    fontSize: 28,
+                    fontColor: 'black'
                 },
                 legend:{
                     display:true,

@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
 import{Item, Card, Button} from "semantic-ui-react"
 
-function GoalCard({goal, goals, deleteGoal, editGoal}) {
+function GoalCard({goal, goals, deleteGoal, alsoImportant ,editGoal}) {
 
     const [showUpdate, setShowUpdate] = useState(false)
 
@@ -12,7 +12,7 @@ function GoalCard({goal, goals, deleteGoal, editGoal}) {
 
 
    function handleDeleteGoal(e){
-        const updatedGoalsArray = goals.filter((g) => g.id != e.target.value)
+        const updatedGoalsArray = alsoImportant.filter((g) => g.id != e.target.value)
         fetch(`http://localhost:4000/goals/${e.target.value}` , {
             method: "DELETE"
         })
