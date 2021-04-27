@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The purpose of this application is to aid the user with managing their budget. A user can set, edit, and delete monthly goals for multiple spending categories. If they decide to set multiple budgets in the same month and category, the app will account for the repeats and simply sum the budgets. Users can also create or delete expenses for each month with differing categories. You are able to filter through all your goals and expenses to narrow it down.
+The app will also display trends of your expenses plotted against monthly goals set, and it updates as the data of goals and expenses are changed. Lastly, the user is able to see 12 monthly spending breakdown pages with pie charts that updates dynamically with expense changes. On each of those pages, the app also informs the user if they succeeded or failed in reaching their goals for that month and by how much. There is also a benchmarks report section next to the goal feedback that analyzes spending ratios that have a default setting, however the user can change the ratios on a month by month basis. Like the goal feedback, the benchmark report changes dynamically based on expenses and if the user changes the percentages from the default. 
 
 ## Available Scripts
 
