@@ -253,7 +253,7 @@ function Jan({janGoals, janExpenses, janFoodPercent, setJanFoodPercent, janAutoP
             </Card>
             <Card className="breakdown">
 
-            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header>
+            <Card.Header as='h2' textAlign="center">Recommendations</Card.Header> 
             {janFoodRatio > janFoodPercent ? <p>You have gone over the recommended <strong>food</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>food</strong> this month! </p> : <p>You have stayed within average <strong>food</strong> spending limits this month!</p>} <br></br>
             {janAutoRatio > janAutoPercent ? <p>You have gone over the recommended <strong>auto</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>auto</strong> this month! </p> : <p>You have stayed within average <strong>auto</strong> spending limits this month!</p>} <br></br>
             {janPersonalRatio > janPersonalPercent ? <p>You have gone over the recommended <strong>personal</strong> spending for the month, consider adjusting your total budget or reducing the amount you spend on <strong>personal</strong> this month! </p> : <p>You have stayed within average <strong>personal</strong> spending limits this month, good job!</p>} <br></br>

@@ -14,7 +14,7 @@ import ExpenseFilter from './ExpenseFilter.js'
 import Auth from './Auth.js'
 
 
-//months unclean edition
+//months  edition
 import Jan from './Jan.js'
 import Feb from './Feb.js'
 import Mar from './Mar.js'
@@ -532,7 +532,7 @@ const categoryOptions =[
         <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
           <br></br>
 
-          <Header id="appheader" as="h2" textAlign="center"dividing >Welcome to the homepage! Here you can set monthly goals and add expenses</Header>      
+          <Header id="appheader" as="h2" textAlign="center"dividing >Welcome to the homepage! Here you can set goals and add expenses</Header>      
       <div id="readme">
 
     <Button animated="fade" onClick={() => setReadMe(!readMe)}  fluid size='medium' color="green">
@@ -669,12 +669,16 @@ const categoryOptions =[
          <Goals alsoImportant={goals} goals={goalsToDisplay} deleteGoal={deleteGoal} editGoal={editGoal}/>
        </Route>
 
+        {/* alsoImportant is to fix filter goals bug with charts */}
+
       <Route exact path="/allexpenses" >
       <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
         <ExpenseFilter expenses={expenses} category={category} setCategory={setCategory} month={month} setMonth={setMonth}/>
         <Expenses goals={goals} important={expenses} expenses={expensesToDisplay} deleteExpense={deleteExpense}/> 
 
       </Route>
+
+      {/* important is to fix filter expenses bug with charts  */}
 
       <Route exact path="/jan">
       <NavBar setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} history={props.history}/> 
